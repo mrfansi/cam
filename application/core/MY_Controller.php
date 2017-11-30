@@ -44,6 +44,8 @@ class MY_Controller extends CI_Controller
 					 ->add_includes('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700', false)
 					 ->add_includes('assets/css/bulma.min.css')
 					 ->add_includes('assets/css/admin.css')
+					 //->add_includes('assets/js/jquery.js')
+					 ->add_includes('assets/js/main.js')
 				     ->add_includes('assets/js/bulma.js')
 				     ->add_includes('assets/img/favicon.ico');
 
