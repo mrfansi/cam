@@ -1,11 +1,11 @@
 <div class="container">
   <div class="field">
     <p class="control">
-      <button class="button is-link" type="button">Buat Data</button>
+      <button class="button is-link" type="button">Buat VLAN Baru</button>
     </p>
   </div>
   
-  <table class="table is-bordered is-striped is-narrow is-fullwidth">
+  <table id="tabel" class="table is-bordered is-striped is-narrow is-fullwidth">
     <thead>
       <tr>
         <th>VLAN ID</th>

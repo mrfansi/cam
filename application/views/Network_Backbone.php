@@ -1,14 +1,15 @@
 <div class="container">
   <div class="field">
     <p class="control">
-      <button class="button is-link" type="button">Buat Data</button>
+      <button class="button is-link" type="button">Buat Link Baru</button>
     </p>
   </div>
   
-  <table class="table is-bordered is-striped is-narrow is-fullwidth">
+  <table id="tabel" class="table is-bordered is-striped is-narrow is-fullwidth">
     <thead>
       <tr>
-        <th>Link</th>
+        <th>Kode Link</th>
+        <th>Nama Link</th>
         <th>Kapasitas</th>
         <th>TX Freq</th>
         <th>RX Freq</th>
@@ -20,6 +21,7 @@
 
     <tbody>
       <tr>
+        <td>LNK-20170108-240900</td>
         <td>Mv. Cikande - Muliapack</td>
         <td>200Mbps</td>
         <td>7456.000</td>
@@ -33,6 +35,7 @@
       </tr>
 
       <tr>
+        <td>LNK-20170108-240900</td>
         <td>Mv. Cikande - Muliapack</td>
         <td>200Mbps</td>
         <td>7456.000</td>
@@ -46,6 +49,7 @@
       </tr>
 
       <tr>
+        <td>LNK-20170108-240900</td>
         <td>Mv. Cikande - Muliapack</td>
         <td>200Mbps</td>
         <td>7456.000</td>

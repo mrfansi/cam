@@ -1,7 +1,7 @@
 <div class="container">
   <div class="field">
     <p class="control">
-      <button class="button is-link modal-button" type="button" data-target="modal-pop">Buat Data</button>
+      <button class="button is-link modal-button" type="button" data-target="modal-pop">Buat POP Baru</button>
       <button class="button is-link modal-button" type="button" data-target="modal-map">Map</button>
     </p>
   </div>
@@ -9,7 +9,10 @@
   <table class="table is-bordered is-striped is-narrow is-fullwidth">
     <thead>
       <tr>
+        <th>Kode POP</th>
         <th>Nama POP</th>
+        <th>Jenis Gedung</th>
+        <th>Tinggi Tower</th>
         <th>Alamat</th>
         <th>Latitude</th>
         <th>Longitude</th>
@@ -19,7 +22,10 @@
 
     <tbody>
       <tr>
+        <td>POP-20170109-230001</td>
         <td>Cengkareng Office</td>
+        <td>Kantor</td>
+        <td>15 Meter</td>
         <td>Jl. Cendrawasih Raya No. 61</td>
         <td>-6.144092</td>
         <td>106.724145</td>
@@ -29,7 +35,10 @@
         </td>
       </tr>
       <tr>
+        <td>POP-20170109-230001</td>
         <td>Cengkareng Office</td>
+        <td>Kantor</td>
+        <td>15 Meter</td>
         <td>Jl. Cendrawasih Raya No. 61</td>
         <td>-6.144092</td>
         <td>106.724145</td>
@@ -39,7 +48,10 @@
         </td>
       </tr>
       <tr>
+        <td>POP-20170109-230001</td>
         <td>Cengkareng Office</td>
+        <td>Kantor</td>
+        <td>15 Meter</td>
         <td>Jl. Cendrawasih Raya No. 61</td>
         <td>-6.144092</td>
         <td>106.724145</td>
@@ -62,7 +74,31 @@
     <section class="modal-card-body">
       <div class="field">
         <p class="control">
-          <input type="text" class="input" name="nama_pop" placeholder="POP">
+          <input type="text" class="input" name="nama_pop" placeholder="POP" autofocus="yes">
+        </p>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="select is-fullwidth">
+            <select name="jenis_gedung_pop">
+              <option value="" selected disabled>Jenis Gedung</option>
+              <option value="Perumahan">Perumahan</option>
+              <option value="Apartement">Apartement</option>
+              <option value="Hotel">Hotel</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+        <p class="control is-expanded">
+          <div class="field has-addons">
+            <p class="control">
+              <input type="text" class="input" name="tinggi_tower_pop" placeholder="Tinggi Tower">
+            </p>
+            <p class="control">
+              <a class="button is-static">
+                Meter
+              </a>
+            </p>
+          </div>
         </p>
       </div>
 
