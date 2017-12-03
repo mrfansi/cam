@@ -54,6 +54,16 @@ class Network_Backbone extends MY_Controller {
 
 		// form_validation
 		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required');
+		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|required');
+		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required|valid_ip');
+		$this->form_validation->set_rules('product_link','Hardware', 'trim|required');
+		$this->form_validation->set_rules('txfreq_link','TX Freq', 'trim|required');
+		$this->form_validation->set_rules('rxfreq_link','RX Freq', 'trim|required');
+		$this->form_validation->set_rules('signal_link','Signal', 'trim|required|integer');
+		$this->form_validation->set_rules('range_link','Jarak', 'trim|integer');
+		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|integer');
+		$this->form_validation->set_rules('mrmc_link','MRMC', 'trim|integer');
+
 
 		// run form_validation
 		if ($this->form_validation->run() == FALSE) {
@@ -112,11 +122,14 @@ class Network_Backbone extends MY_Controller {
 		// form_validation
 		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required');
 		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|required');
-		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required');
+		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required|valid_ip');
 		$this->form_validation->set_rules('product_link','Hardware', 'trim|required');
 		$this->form_validation->set_rules('txfreq_link','TX Freq', 'trim|required');
 		$this->form_validation->set_rules('rxfreq_link','RX Freq', 'trim|required');
-		$this->form_validation->set_rules('signal_link','Signal', 'trim|required');
+		$this->form_validation->set_rules('signal_link','Signal', 'trim|required|integer');
+		$this->form_validation->set_rules('range_link','Jarak', 'trim|integer');
+		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|integer');
+		$this->form_validation->set_rules('mrmc_link','MRMC', 'trim|integer');
 
 		// run form_validation
 		if ($this->form_validation->run() == FALSE) {
