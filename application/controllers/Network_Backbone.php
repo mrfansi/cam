@@ -25,11 +25,16 @@ class Network_Backbone extends MY_Controller {
 	}
 
 	public function detail($id) {
+	
 		// create object
 		$data 			= new stdClass();
 		$data->validasi = false;
 		$data->kode_link= $id;
 		$data->action 	= base_url('manage/backbone/ubah/' . $id);
+
+		if ($id == '') {
+			redirect('manage/backbone/tambah');
+		}
 
 		// select data from id
 		$data->record = $this->model_backbone->get($id);
@@ -53,7 +58,7 @@ class Network_Backbone extends MY_Controller {
 		$data->action 	= base_url('manage/backbone/tambah');
 
 		// form_validation
-		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required');
+		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required|is_unique[backbone.nama_link]');
 		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|required');
 		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required|valid_ip');
 		$this->form_validation->set_rules('product_link','Hardware', 'trim|required');
@@ -119,8 +124,12 @@ class Network_Backbone extends MY_Controller {
 		$data->kode_link = $id;
 		$data->action 	= base_url('manage/backbone/ubah/' . $id);
 
+		if ($id == '') {
+			redirect('manage/backbone/tambah');
+		}
+
 		// form_validation
-		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required');
+		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required|is_unique[backbone.nama_link]');
 		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|required');
 		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required|valid_ip');
 		$this->form_validation->set_rules('product_link','Hardware', 'trim|required');
@@ -171,6 +180,10 @@ class Network_Backbone extends MY_Controller {
 	public function hapus($id) {
 		// create object
 		$data = new stdClass();
+
+		if ($id == '') {
+			redirect('manage/backbone/tambah');
+		}
 
 		// delete data in table
 		if ($this->model_backbone_detail->delete($id) && $this->model_backbone->delete($id)) {

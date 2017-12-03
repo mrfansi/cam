@@ -31,6 +31,11 @@ class Network_POP extends MY_Controller {
 		$data->kode_pop	= $id;
 		$data->action 	= base_url('manage/pop/ubah/' . $id);
 
+
+		if ($id == '') {
+			redirect('manage/pop/tambah');
+		}
+
 		// select data from id
 		$data->record = $this->pop->get($id);
 
@@ -54,7 +59,9 @@ class Network_POP extends MY_Controller {
 		$data->action 	= base_url('manage/pop/tambah');
 
 		// form_validation
-		$this->form_validation->set_rules('nama_pop','Nama POP', 'trim|required');
+		$this->form_validation->set_rules('nama_pop','Nama POP', 'trim|required|is_unique[pop.nama_pop]');
+		$this->form_validation->set_rules('jenis_gedung_pop','Jenis Gedung', 'trim|required');
+		$this->form_validation->set_rules('tinggi_tower_pop','Tinggi Tower', 'trim|required|integer');
 		
 		// run form_validation
 		if ($this->form_validation->run() == FALSE) {
@@ -96,8 +103,16 @@ class Network_POP extends MY_Controller {
 		$data->kode_pop = $id;
 		$data->action 	= base_url('manage/pop/ubah/' . $id);
 
+
+		if ($id == '') {
+			redirect('manage/pop/tambah');
+		}
+
+
 		// form_validation
-		$this->form_validation->set_rules('nama_pop','Nama POP', 'trim|required');
+		$this->form_validation->set_rules('nama_pop','Nama POP', 'trim|required|is_unique[pop.nama_pop]');
+		$this->form_validation->set_rules('jenis_gedung_pop','Jenis Gedung', 'trim|required');
+		$this->form_validation->set_rules('tinggi_tower_pop','Tinggi Tower', 'trim|required|integer');
 	
 		// run form_validation
 		if ($this->form_validation->run() == FALSE) {

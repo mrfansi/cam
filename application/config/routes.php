@@ -60,15 +60,21 @@ $route['manage']							= 'dashboard/manage';
 // Network POP
 $route['manage/pop']						= 'network_pop';
 $route['manage/pop/tambah']					= 'network_pop/tambah';
+$route['manage/pop/detail']					= 'network_pop/detail';
 $route['manage/pop/detail/(:any)']			= 'network_pop/detail/$1';
+$route['manage/pop/ubah']					= 'network_pop/ubah';
 $route['manage/pop/ubah/(:any)']			= 'network_pop/ubah/$1';
+$route['manage/pop/hapus']					= 'network_pop/hapus';
 $route['manage/pop/hapus/(:any)']			= 'network_pop/hapus/$1';
 
 // Network Backbone
 $route['manage/backbone']					= 'network_backbone';
 $route['manage/backbone/tambah']			= 'network_backbone/tambah';
+$route['manage/backbone/detail']			= 'network_backbone/detail';
 $route['manage/backbone/detail/(:any)']		= 'network_backbone/detail/$1';
+$route['manage/backbone/ubah']				= 'network_backbone/ubah';
 $route['manage/backbone/ubah/(:any)']		= 'network_backbone/ubah/$1';
+$route['manage/backbone/hapus']				= 'network_backbone/hapus';
 $route['manage/backbone/hapus/(:any)']		= 'network_backbone/hapus/$1';
 
 // Network Vlan
