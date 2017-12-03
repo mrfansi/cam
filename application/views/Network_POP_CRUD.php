@@ -130,7 +130,7 @@
       // hide notif ketika waktu habis
       if ($('#notif').length) {
         setTimeout(function(){
-          $('#notif').hide();
+          $('#notif').fadeOut();
         }, 5000);
       };
 

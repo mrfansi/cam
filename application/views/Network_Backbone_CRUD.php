@@ -27,10 +27,10 @@
         $nama_link         = $record->nama_link;
         $kapasitas_link    = $record->kapasitas_link;
         $ip_addr_link      = $record->ip_addr_link;
-        $product_link      = $record->detail->product_link;
-        $txfreq_link     = $record->detail->txfreq_link;
-        $rxfreq_link     = $record->detail->rxfreq_link;
-        $signal_link     = $record->detail->signal_link;
+        $product_link      = $record->product_link;
+        $txfreq_link     = $record->txfreq_link;
+        $rxfreq_link     = $record->rxfreq_link;
+        $signal_link     = $record->signal_link;
         $ssid_link       = $record->detail->ssid_link;
         $mse_link        = $record->detail->mse_link;
         $mrmc_link       = $record->detail->mrmc_link;
@@ -41,7 +41,6 @@
       } else {
         $nama_link         = '';
         $kapasitas_link    = '';
-        $satkapasitas_link = '';
         $ip_addr_link      = '';
         $product_link      = '';
         $txfreq_link     = '';
@@ -123,17 +122,17 @@
 
       <div class="field is-grouped">
         <div class="control is-expanded">
-          <label class="label">TX Freq</label>
+          <label class="label">TX Freq (Wajib diisi)</label>
           <input class="input" type="text" name="txfreq_link" placeholder="TX Freq" value="<?php echo $txfreq_link; ?>">
         </div>
 
         <div class="control is-expanded">
-          <label class="label">RX Freq</label>
+          <label class="label">RX Freq (Wajib diisi)</label>
           <input class="input" type="text" name="rxfreq_link" placeholder="RX Freq" value="<?php echo $rxfreq_link; ?>">
         </div>
 
         <div class="control is-expanded">
-          <label class="label">Signal</label>
+          <label class="label">Signal (Wajib diisi)</label>
           <input class="input" type="text" name="signal_link" placeholder="Signal" value="<?php echo $signal_link ;?>">
         </div>
 
@@ -165,7 +164,7 @@
         
         <div class="control is-expanded">
           <label class="label">Link ID</label>
-          <input class="input" type="text" name="linkid_link" placeholder="Link ID" placeholder="<?php echo $linkid_link ?>">
+          <input class="input" type="text" name="linkid_link" placeholder="Link ID" value="<?php echo $linkid_link ?>">
         </div>
       </div>
 
@@ -214,7 +213,7 @@
       // hide notif ketika waktu habis
       if ($('#notif').length) {
         setTimeout(function(){
-          $('#notif').hide();
+          $('#notif').fadeOut();
         }, 5000);
       };
 

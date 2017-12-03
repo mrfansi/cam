@@ -9,8 +9,6 @@ class Network_POP extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('model_pop','pop');
-
-		
 	}
 	
 	public function index() {
@@ -47,7 +45,7 @@ class Network_POP extends MY_Controller {
 		$this->set_title('Tambah POP');
 
 		// load custom library
-		$this->load->library('validasi');
+		$this->load->library('form_validation');
 
 		// create object
 		$data 			= new stdClass();
@@ -55,11 +53,10 @@ class Network_POP extends MY_Controller {
 		$data->kode_pop = 'pop-' . date('Ymd') . '-' . date('His');
 		$data->action 	= base_url('manage/pop/tambah');
 
-		// validasi
-		$this->validasi->set_rules('nama_pop','Nama POP', array('trim', 'required'), false);
-		// $this->validasi->set_rules('tinggi_tower_pop','Tinggi Tower', array('trim', 'less_than_equal_to[5], greater_than_equal_to[50]'), false);
-
-		// run validasi
+		// form_validation
+		$this->form_validation->set_rules('nama_pop','Nama POP', 'trim|required');
+		
+		// run form_validation
 		if ($this->form_validation->run() == FALSE) {
 			$this->tampilkan('Network_POP_CRUD', $data);
 		} else {
@@ -91,7 +88,7 @@ class Network_POP extends MY_Controller {
 		$this->set_title('Ubah Data (' . $id . ')');
 
 		// load custom library
-		$this->load->library('validasi');
+		$this->load->library('form_validation');
 
 		// create object
 		$data 			= new stdClass();
@@ -99,11 +96,10 @@ class Network_POP extends MY_Controller {
 		$data->kode_pop = $id;
 		$data->action 	= base_url('manage/pop/ubah/' . $id);
 
-		// validasi
-		$this->validasi->set_rules('nama_pop','Nama POP', array('trim', 'required'), false);
-		// $this->validasi->set_rules('tinggi_tower_pop','Tinggi Tower', array('trim', 'less_than_equal_to[5], greater_than_equal_to[50]'), false);
-
-		// run validasi
+		// form_validation
+		$this->form_validation->set_rules('nama_pop','Nama POP', 'trim|required');
+	
+		// run form_validation
 		if ($this->form_validation->run() == FALSE) {
 			$this->tampilkan('Network_POP_CRUD', $data);
 		} else {

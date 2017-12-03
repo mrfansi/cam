@@ -75,6 +75,9 @@
         <th>Nama Link</th>
         <th>Kapasitas</th>
         <th>IP Address</th>
+        <th>TX Freq</th>
+        <th>RX Freq</th>
+        <th>Signal</th>
         <th>Ping Status</th>
         <th>Opsi</th>
       </tr>
@@ -87,6 +90,9 @@
           <td><?php echo $data->nama_link; ?></td>
           <td><?php echo $data->kapasitas_link . ' Mbps'; ?></td>
           <td><?php echo $data->ip_addr_link; ?></td>
+          <td><?php echo $data->txfreq_link; ?></td>
+          <td><?php echo $data->rxfreq_link; ?></td>
+          <td><?php echo $data->signal_link; ?></td>
           <td class="is-success">UP</td>
           <td>
             <a id="btn-detail" class="button is-small is-info" target="<?php echo $data->kode_link; ?>">Lihat Detil</a>

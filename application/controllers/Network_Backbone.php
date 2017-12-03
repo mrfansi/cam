@@ -44,7 +44,7 @@ class Network_Backbone extends MY_Controller {
 		$this->set_title('Tambah Link');
 
 		// load custom library
-		$this->load->library('validasi');
+		$this->load->library('form_validation');
 
 		// create object
 		$data 			= new stdClass();
@@ -52,11 +52,10 @@ class Network_Backbone extends MY_Controller {
 		$data->kode_link = 'lnk-' . date('Ymd') . '-' . date('His');
 		$data->action 	= base_url('manage/backbone/tambah');
 
-		// validasi
-		$this->validasi->set_rules('nama_link','Nama Link', array('trim', 'required'), false);
-		// $this->validasi->set_rules('tinggi_tower_pop','Tinggi Tower', array('trim', 'less_than_equal_to[5], greater_than_equal_to[50]'), false);
+		// form_validation
+		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required');
 
-		// run validasi
+		// run form_validation
 		if ($this->form_validation->run() == FALSE) {
 			$this->tampilkan('Network_Backbone_CRUD', $data);
 		} else {
@@ -65,16 +64,17 @@ class Network_Backbone extends MY_Controller {
 				'kode_link'				=> $this->input->post('kode_link'),
 				'nama_link'				=> $this->input->post('nama_link'),
 				'kapasitas_link'		=> $this->input->post('kapasitas_link'),
-				'ip_addr_link'			=> $this->input->post('ip_addr_link')
+				'ip_addr_link'			=> $this->input->post('ip_addr_link'),
+				'product_link'			=> $this->input->post('product_link'),
+				'txfreq_link'			=> $this->input->post('txfreq_link'),
+				'rxfreq_link'			=> $this->input->post('rxfreq_link'),
+				'signal_link'			=> $this->input->post('signal_link'),
+
 			);
 
 			// set variable post detail in array
 			$post_data_detail = array(
 				'kode_link'				=> $this->input->post('kode_link'),
-				'product_link'			=> $this->input->post('product_link'),
-				'txfreq_link'			=> $this->input->post('txfreq_link'),
-				'rxfreq_link'			=> $this->input->post('rxfreq_link'),
-				'signal_link'			=> $this->input->post('signal_link'),
 				'ssid_link'				=> $this->input->post('ssid_link'),
 				'mse_link'				=> $this->input->post('mse_link'),
 				'mrmc_link'				=> $this->input->post('mrmc_link'),
@@ -99,8 +99,9 @@ class Network_Backbone extends MY_Controller {
 		// set title
 		$this->set_title('Ubah Data (' . $id . ')');
 
+
 		// load custom library
-		$this->load->library('validasi');
+		$this->load->library('form_validation');
 
 		// create object
 		$data 			= new stdClass();
@@ -108,11 +109,16 @@ class Network_Backbone extends MY_Controller {
 		$data->kode_link = $id;
 		$data->action 	= base_url('manage/backbone/ubah/' . $id);
 
-		// validasi
-		$this->validasi->set_rules('nama_link','Nama Link', array('trim', 'required'), false);
-		// $this->validasi->set_rules('tinggi_tower_pop','Tinggi Tower', array('trim', 'less_than_equal_to[5], greater_than_equal_to[50]'), false);
+		// form_validation
+		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required');
+		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|required');
+		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required');
+		$this->form_validation->set_rules('product_link','Hardware', 'trim|required');
+		$this->form_validation->set_rules('txfreq_link','TX Freq', 'trim|required');
+		$this->form_validation->set_rules('rxfreq_link','RX Freq', 'trim|required');
+		$this->form_validation->set_rules('signal_link','Signal', 'trim|required');
 
-		// run validasi
+		// run form_validation
 		if ($this->form_validation->run() == FALSE) {
 			$this->tampilkan('Network_Backbone_CRUD', $data);
 		} else {
@@ -120,19 +126,18 @@ class Network_Backbone extends MY_Controller {
 			$post_data = array(
 				'nama_link'				=> $this->input->post('nama_link'),
 				'kapasitas_link'		=> $this->input->post('kapasitas_link'),
-				'satkapasitas_link'		=> $this->input->post('satakapasitas_link')
+				'ip_addr_link'			=> $this->input->post('ip_addr_link'),
+				'product_link'			=> $this->input->post('product_link'),
+				'txfreq_link'			=> $this->input->post('txfreq_link'),
+				'rxfreq_link'			=> $this->input->post('rxfreq_link'),
+				'signal_link'			=> $this->input->post('signal_link')
 			);
 
 			// set variable post detail in array
 			$post_data_detail = array(
-				'product_link'			=> $this->input->post('product_link'),
-				'txfreq_link'			=> $this->input->post('txfreq_link'),
-				'rxfreq_link'			=> $this->input->post('rxfreq_link'),
-				'signal_link'			=> $this->input->post('signal_link'),
 				'ssid_link'				=> $this->input->post('ssid_link'),
 				'mse_link'				=> $this->input->post('mse_link'),
 				'mrmc_link'				=> $this->input->post('mrmc_link'),
-				'satmrmc_link'			=> $this->input->post('satmrmc_Link'),
 				'linkid_link'			=> $this->input->post('linkid_link'),
 				'range_link'			=> $this->input->post('range_link'),
 				'txrange_link'			=> $this->input->post('txrange_link'),
