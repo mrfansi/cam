@@ -175,7 +175,7 @@ class MY_Model extends CI_Model {
             $this->_database->insert($this->_table, $data);
             $insert_id = $this->_database->insert_id();
             $this->trigger('after_create', $insert_id);
-            return $insert_id;
+            return true;
         }
         else
         {

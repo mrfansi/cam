@@ -1,19 +1,79 @@
 <div class="container">
+  <?php
+    $action_detail  = base_url('manage/pop/detail/');
+    $action_hapus   = base_url('manage/pop/hapus/');
+    $action_map     = base_url('manage/pop/map/'); 
+  ?>
+  <?php if(isset($berhasil)): ?>
+  <div class="notification is-success">
+    <?php echo $berhasil; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if(isset($gagal)): ?>
+  <div class="notification is-danger">
+    <?php echo $gagal; ?>
+  </div>
+  <?php endif; ?>
+
   <div class="field">
     <p class="control">
-      <button class="button is-link modal-button" type="button" data-target="modal-pop">Buat POP Baru</button>
-      <button class="button is-link modal-button" type="button" data-target="modal-map">Map</button>
+      <a href="pop/tambah" class="button is-link modal-button">Buat POP Baru</a>
+      <a href="pop/map_all" class="button is-link modal-button" type="button" data-target="modal-map">Network Map</a>
     </p>
   </div>
+
+  <nav class="level" style="margin-bottom: 5px;">
+    <div class="level-left">
+      <div class="level-item">
+        <div class="field has-addons">
+          <p class="control">
+            <a class="button is-static">
+              Tampilkan
+            </a>
+          </p>
+          <p class="control">
+            <div class="select">
+              <select name="show_row">
+                <option value="10">10</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+          </p>
+          <p class="control">
+            <a class="button is-static">
+              Halaman
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="level-right">
+      <div class="level-item">
+        <div class="field has-addons">
+          <p class="control">
+            <a class="button is-static">
+              Filter
+            </a>
+          </p>
+          <p class="control">
+            <input class="input" type="text" name="filter">
+          </p>
+          
+        </div>
+      </div>
+    </div>
+  </nav>
   
   <table class="table is-bordered is-striped is-narrow is-fullwidth">
     <thead>
       <tr>
-        <th>Kode POP</th>
         <th>Nama POP</th>
         <th>Jenis Gedung</th>
         <th>Tinggi Tower</th>
-        <th>Alamat</th>
         <th>Latitude</th>
         <th>Longitude</th>
         <th>Opsi</th>
@@ -21,106 +81,118 @@
     </thead>
 
     <tbody>
-      <tr>
-        <td>POP-20170109-230001</td>
-        <td>Cengkareng Office</td>
-        <td>Kantor</td>
-        <td>15 Meter</td>
-        <td>Jl. Cendrawasih Raya No. 61</td>
-        <td>-6.144092</td>
-        <td>106.724145</td>
-        <td>
-          <a href="#" class="button is-small is-info">Lihat Detil</a>
-          <a href="#" class="button is-small is-danger">Hapus</a>
-        </td>
-      </tr>
-      <tr>
-        <td>POP-20170109-230001</td>
-        <td>Cengkareng Office</td>
-        <td>Kantor</td>
-        <td>15 Meter</td>
-        <td>Jl. Cendrawasih Raya No. 61</td>
-        <td>-6.144092</td>
-        <td>106.724145</td>
-        <td>
-          <a href="#" class="button is-small is-info">Lihat Detil</a>
-          <a href="#" class="button is-small is-danger">Hapus</a>
-        </td>
-      </tr>
-      <tr>
-        <td>POP-20170109-230001</td>
-        <td>Cengkareng Office</td>
-        <td>Kantor</td>
-        <td>15 Meter</td>
-        <td>Jl. Cendrawasih Raya No. 61</td>
-        <td>-6.144092</td>
-        <td>106.724145</td>
-        <td>
-          <a href="#" class="button is-small is-info">Lihat Detil</a>
-          <a href="#" class="button is-small is-danger">Hapus</a>
-        </td>
-      </tr>
+      <?php if(isset($all_records) && $all_records != NULL ): ?>
+      <?php foreach ($all_records as $data): ?>
+        <tr>
+          <td><?php echo $data->nama_pop; ?></td>
+          <td><?php echo $data->jenis_gedung_pop; ?></td>
+          <td><?php echo $data->tinggi_tower_pop . ' Meter'; ?></td>
+          <td><?php echo $isi = $data->latitude_pop == '' ? '(kosong)' : $data->latitude_pop ?></td>
+          <td><?php echo $isi = $data->longitude_pop == '' ? '(kosong)' : $data->longitude_pop ?></td>
+          <td>
+            <a id="btn-detail" class="button is-small is-info" target="<?php echo $data->kode_pop; ?>">Lihat Detil</a>
+            <a id="btn-map" class="button is-small is-info" target="<?php echo $data->kode_pop; ?>">Map</a>
+            <a id="btn-hapus" class="button is-small is-danger modal-button" data-target="modal-delete" target="<?php echo $data->kode_pop; ?>">Hapus</a>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+      <?php else: ?>
+        <tr>
+          <td colspan="8">Data tidak ada</td>
+        </tr>
+      <?php endif; ?>
     </tbody>
-  </table>      
+    <tfoot>
+      <tr>
+        <th>Total Data</th>
+      </tr>
+    </tfoot>
+  </table>  
+
+  <nav class="pagination" role="navigation" aria-label="pagination">
+    <a class="pagination-previous" title="This is the first page" disabled>Previous</a>
+    <a class="pagination-next">Next page</a>
+    <ul class="pagination-list">
+      <li>
+        <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+      </li>
+      <li>
+        <a class="pagination-link" aria-label="Goto page 2">2</a>
+      </li>
+      <li>
+        <a class="pagination-link" aria-label="Goto page 3">3</a>
+      </li>
+    </ul>
+  </nav>
 </div>
 
-<div class="modal" id="modal-pop">
+<div class="modal" id="modal-delete">
   <div class="modal-background"></div>
-  <form class="modal-card" method="POST" autocomplete="off">
+  <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Data POP</p>
-      <button class="delete" type="button" aria-label="close"></button>
+      <p class="modal-card-title">Hapus</p>
+      <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      <div class="field">
-        <p class="control">
-          <input type="text" class="input" name="nama_pop" placeholder="POP" autofocus="yes">
-        </p>
-      </div>
-
-      <div class="field is-grouped">
-        <div class="select is-fullwidth">
-            <select name="jenis_gedung_pop">
-              <option value="" selected disabled>Jenis Gedung</option>
-              <option value="Perumahan">Perumahan</option>
-              <option value="Apartement">Apartement</option>
-              <option value="Hotel">Hotel</option>
-              <option value="Lainnya">Lainnya</option>
-            </select>
-          </div>
-        <p class="control is-expanded">
-          <div class="field has-addons">
-            <p class="control">
-              <input type="text" class="input" name="tinggi_tower_pop" placeholder="Tinggi Tower">
-            </p>
-            <p class="control">
-              <a class="button is-static">
-                Meter
-              </a>
-            </p>
-          </div>
-        </p>
-      </div>
-
-      <div class="field">
-        <p class="control">
-          <textarea class="textarea" placeholder="Alamat"></textarea>
-        </p>
-      </div>
-
-      <div class="field is-grouped">
-        <p class="control is-expanded">
-          <input type="text" class="input" name="latitude_pop" placeholder="Latitude">
-        </p>
-        <p class="control is-expanded">
-          <input type="text" class="input" name="longitude_pop" placeholder="Longitude">
-        </p>
-      </div>
-
+      <p>Apakah yakin ingin menghapus data ini?</p>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-link" type="submit">Simpan</button>
-      <button class="button" type="button">Cancel</button>
+      <button id="ya" class="button is-danger">Ya</button>
+      <button id="tidak" class="button">Tidak</button>
     </footer>
-  </form>
+  </div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var detail_target = '<?php echo $action_detail; ?>';
+    var map_target    = '<?php echo $action_map; ?>';
+    var hapus_target = '<?php echo $action_hapus; ?>';
+    
+    $('[id^="btn-hapus"]').click(function(e){
+      // hold
+      e.preventDefault();
+
+      // get action
+      var action = $(this).attr('target');
+
+      // add attribute
+      $('#ya').attr('target', action);
+    });
+
+
+    $('[id^="btn-map"]').click(function(e){
+      // hold
+      e.preventDefault();
+
+      // get action
+      var action = $(this).attr('target');
+
+      // call URL
+      window.location = map_target + action;
+    });
+
+    $('[id^="btn-detail"]').click(function(e){
+      // hold
+      e.preventDefault();
+
+      // get action
+      var action = $(this).attr('target');
+
+      // call URL
+      window.location = detail_target + action;
+    });
+
+    $('#ya').click(function(e){
+      // hold
+      e.preventDefault();
+
+      // get action
+      var action = $(this).attr('target');
+
+      // call URL
+      window.location = hapus_target + action;
+    });
+
+  });
+</script>
+

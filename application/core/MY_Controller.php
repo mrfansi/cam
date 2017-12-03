@@ -30,7 +30,7 @@ class MY_Controller extends CI_Controller
 		}
 	}
 
-	public function tampilkan($halaman) {
+	public function tampilkan($halaman, $data = array()) {
 
 		if ($this->title == null) {
 			$this->layout->set_title('CAM - ' . str_replace('_', ' ', $halaman));
@@ -46,7 +46,7 @@ class MY_Controller extends CI_Controller
 					 ->add_includes('assets/css/dataTables.css')
 					 ->add_includes('assets/css/dataTables.bootstrap.min.css')
 					 ->add_includes('assets/css/admin.css')
-					 ->add_includes('assets/js/jquery.js')
+					 ->add_includes('assets/js/jquery.min.js')
 					 ->add_includes('assets/js/dataTables.js')
 					 ->add_includes('assets/js/dataTables.bootstrap.min.js')
 					 ->add_includes('assets/js/tables.js')
@@ -54,7 +54,7 @@ class MY_Controller extends CI_Controller
 				     ->add_includes('assets/js/bulma.js')
 				     ->add_includes('assets/img/favicon.ico');
 
-		$this->layout->tampilkan($halaman);
+		$this->layout->tampilkan($halaman, array(), $data);
 	}
 
 	public function set_title($title) {
