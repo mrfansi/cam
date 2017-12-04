@@ -20,10 +20,6 @@
     <p class="control">
       <a href="pop/tambah" class="button is-link modal-button">Buat POP Baru</a>
       <a href="pop/map_all" class="button is-link modal-button" type="button" data-target="modal-map">Network Map</a>
-      <form action="<?php echo base_url('manage/pop/upload'); ?>">
-        <input class="file" type="file" name="file">
-        <input class="button is-link" type="submit" name="filesubmit">
-      </form>
     </p>
   </div>
 

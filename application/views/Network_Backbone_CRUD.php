@@ -1,5 +1,9 @@
 <div class="container">
   <?php if($validasi): ?>
+    <?php if(validation_errors()): ?>
+      <div class="notification is-warning" id="notif">
+        <?php echo validation_errors(); ?>
+      </div>
     <?php
       $nama_link         = set_value('nama_link');
       $kapasitas_link    = set_value('kapasitas_link');
@@ -16,10 +20,23 @@
       $txrange_link    = set_value('txrange_link');
       $rxrange_link    = set_value('rxrange_link');
     ?>
-    <?php if(validation_errors()): ?>
-      <div class="notification is-warning" id="notif">
-        <?php echo validation_errors(); ?>
-      </div>
+    <?php else: ?>
+    <?php
+      $nama_link         = '';
+      $kapasitas_link    = '';
+      $ip_addr_link      = '';
+      $product_link      = '';
+      $txfreq_link     = '';
+      $rxfreq_link     = '';
+      $signal_link     = '';
+      $ssid_link       = '';
+      $mse_link        = '';
+      $mrmc_link       = '';
+      $linkid_link     = '';
+      $range_link      = '';
+      $txrange_link    = '';
+      $rxrange_link    = '';
+    ?>
     <?php endif; ?>
   <?php else: ?>
     <?php
@@ -38,7 +55,7 @@
         $range_link      = $record->detail->range_link;
         $txrange_link    = $record->detail->txrange_link;
         $rxrange_link    = $record->detail->rxrange_link;
-      } else {
+      } elseif ($action == base_url('manage/backbone/tambah')) {
         $nama_link         = '';
         $kapasitas_link    = '';
         $ip_addr_link      = '';
