@@ -26,7 +26,9 @@ class MY_Controller extends CI_Controller
 		if (isset($_SESSION['user_loggedin']) && $_SESSION['user_loggedin']) {
 			return $this;
 		} else {
-			redirect('auth');
+			if($this->router->fetch_method() != 'pingCheck') {
+				redirect('auth');
+			}
 		}
 	}
 

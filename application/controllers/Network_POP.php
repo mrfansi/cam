@@ -8,7 +8,7 @@ class Network_POP extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('model_pop','pop');
+		$this->load->model('Model_Pop','pop');
 
 		// load custom library
 		$this->load->library(array('PHPExcel','PHPExcel/IOFactory'));
@@ -154,7 +154,7 @@ class Network_POP extends MY_Controller {
 			$data->gagal = 'Gagal menghapus data.';
 		}
 
-		$this->index();
+		redirect('manage/pop','refresh');
 	}
 
 	public function upload(){

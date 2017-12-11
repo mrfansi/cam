@@ -23,7 +23,7 @@
     </p>
   </div>
 
-  <nav class="level" style="margin-bottom: 5px;">
+  <!-- <nav class="level" style="margin-bottom: 5px;">
     <div class="level-left">
       <div class="level-item">
         <div class="field has-addons">
@@ -66,9 +66,20 @@
         </div>
       </div>
     </div>
-  </nav>
+  </nav> -->
+
+  <div class="field has-addons">
+    <p class="control">
+      <a class="button is-static">
+        Filter
+      </a>
+    </p>
+    <p class="control is-expanded">
+      <input class="input" type="text" name="filter" placeholder="..." autofocus="yes">
+    </p>
+  </div>
   
-  <table class="table is-bordered is-striped is-narrow is-fullwidth">
+  <table class="table is-bordered is-striped is-narrow is-fullwidth is-hoverable">
     <thead>
       <tr>
         <th>Nama POP</th>
@@ -102,14 +113,14 @@
         </tr>
       <?php endif; ?>
     </tbody>
-    <tfoot>
+    <!-- <tfoot>
       <tr>
         <th>Total Data</th>
       </tr>
-    </tfoot>
+    </tfoot> -->
   </table>  
 
-  <nav class="pagination" role="navigation" aria-label="pagination">
+  <!-- <nav class="pagination" role="navigation" aria-label="pagination">
     <a class="pagination-previous" title="This is the first page" disabled>Previous</a>
     <a class="pagination-next">Next page</a>
     <ul class="pagination-list">
@@ -123,7 +134,7 @@
         <a class="pagination-link" aria-label="Goto page 3">3</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 </div>
 
 <div class="modal" id="modal-delete">

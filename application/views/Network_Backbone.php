@@ -24,7 +24,7 @@
     </p>
   </div>
 
-  <nav class="level" style="margin-bottom: 5px;">
+  <!-- <nav class="level" style="margin-bottom: 5px;">
     <div class="level-left">
       <div class="level-item">
         <div class="field has-addons">
@@ -67,9 +67,20 @@
         </div>
       </div>
     </div>
-  </nav>
+  </nav> -->
+
+  <div class="field has-addons">
+    <p class="control">
+      <a class="button is-static">
+        Filter
+      </a>
+    </p>
+    <p class="control is-expanded">
+      <input class="input" type="text" name="filter" placeholder="..." autofocus="yes">
+    </p>
+  </div>
   
-  <table class="table is-bordered is-striped is-narrow is-fullwidth">
+  <table class="table is-bordered is-striped is-narrow is-fullwidth is-hoverable" id="data-table">
     <thead>
       <tr>
         <th>Nama Link</th>
@@ -89,13 +100,14 @@
         <tr>
           <td><?php echo $data->nama_link; ?></td>
           <td><?php echo $data->kapasitas_link . ' Mbps'; ?></td>
-          <td><?php echo $data->ip_addr_link; ?></td>
+          <td id="ipaddr"><?php echo $data->ip_addr_link; ?></td>
           <td><?php echo $data->txfreq_link; ?></td>
           <td><?php echo $data->rxfreq_link; ?></td>
           <td><?php echo $data->signal_link; ?></td>
-          <td class="is-success">UP</td>
+          <td id="status" class="<?= $data->status_link == 'UP' ? 'is-success' : 'is-danger' ;?>"><?php echo $data->status_link; ?></td>
           <td>
             <a id="btn-detail" class="button is-small is-info" target="<?php echo $data->kode_link; ?>">Lihat Detil</a>
+            <a id="btn-open" class="button is-small is-info" href="http://<?php echo $data->ip_addr_link; ?>">Buka</a>
             <a id="btn-hapus" class="button is-small is-danger modal-button" data-target="modal-delete" target="<?php echo $data->kode_link; ?>">Hapus</a>
           </td>
         </tr>
@@ -149,6 +161,22 @@
       window.location = detail_target + action;
     });
 
+    $('[id^="btn-open"]').click(function(e){
+    	// hold
+     	e.preventDefault();
+      	var open = $(this);
+
+      	open.attr('target', '_blank');
+
+      	// get action
+      	var href = open.attr('href');
+
+      	// call URL
+      	window.open(href);
+
+      	return false;
+    });
+
     $('#ya').click(function(e){
       // hold
       e.preventDefault();
@@ -159,6 +187,29 @@
       // call URL
       window.location = hapus_target + action;
     });
+
+    // setInterval(function(){
+    //    $('#data-table > tbody  > tr').each(function() {
+
+    //     ipaddr = $(this).find('td#ipaddr').text();
+    //     $status = $(this).find('td#status');
+
+    //     // set URL to Test
+    //     url = '<?php echo base_url('manage/backbone/ping/') ?>' + ipaddr;
+        
+    //     // get
+    //     $.ajax({url: url, success: function(result){
+    //       if(result == 'DOWN') {
+    //         $status.removeClass('is-success').addClass('is-danger');
+    //         $status.text('DOWN');
+    //       } else if(result == 'UP') {
+    //         $status.removeClass('is-danger').addClass('is-success');
+    //         $status.text('UP');
+    //       }
+    //     }});
+    //   });
+    // }, 10000)
+   
 
   });
 </script>

@@ -8,8 +8,8 @@ class Network_Backbone extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('model_backbone');
-		$this->load->model('model_backbone_detail');
+		$this->load->model('Model_Backbone','bb');
+		$this->load->model('Model_Backbone_detail','bb_detail');
 
 		// load custom library
 		$this->load->library(array('PHPExcel','PHPExcel/IOFactory'));
@@ -20,7 +20,7 @@ class Network_Backbone extends MY_Controller {
 		$data = new stdClass();
 
 		// load all data in table
-		$data->all_records = $this->model_backbone->with('model_backbone_detail')->get_all();
+		$data->all_records = $this->bb->with('bb_detail')->get_all();
 
 		// show view with data
 		$this->set_title('Backbone');
@@ -40,8 +40,9 @@ class Network_Backbone extends MY_Controller {
 		}
 
 		// select data from id
-		$data->record = $this->model_backbone->get($id);
-		$data->record->detail = $this->model_backbone_detail->get($id);
+		$data->record 			= $this->bb->get($id);
+		$data->record->detail 	= $this->bb_detail->get($id);
+		
 		// show view with data
 		$this->set_title('Detail (' . $id . ')');
 		$this->tampilkan('Network_Backbone_CRUD', $data);
@@ -103,7 +104,7 @@ class Network_Backbone extends MY_Controller {
 			);
 
 			// insert into table pop
-			if ($this->model_backbone->insert($post_data, true) && $this->model_backbone_detail->insert($post_data_detail, true)) {
+			if ($this->bb->insert($post_data, true) && $this->bb_detail->insert($post_data_detail, true)) {
 				$data->berhasil = 'Berhasil menambah data.';
 			} else {
 				$data->gagal = 'Gagal menambah data.';
@@ -132,7 +133,7 @@ class Network_Backbone extends MY_Controller {
 		}
 
 		// form_validation
-		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required|is_unique[backbone.nama_link]');
+		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required');
 		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|required');
 		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required|valid_ip');
 		$this->form_validation->set_rules('product_link','Hardware', 'trim|required');
@@ -170,7 +171,7 @@ class Network_Backbone extends MY_Controller {
 			);
 
 			// insert into table backbone dan backbone_detail
-			if ($this->model_backbone->update($id, $post_data) && $this->model_backbone_detail->update($id, $post_data_detail)) {
+			if ($this->bb->update($id, $post_data) && $this->bb_detail->update($id, $post_data_detail)) {
 				$data->berhasil = 'Berhasil mengubah data.';
 			} else {
 				$data->gagal = 'Gagal mengubah data.';
@@ -189,13 +190,13 @@ class Network_Backbone extends MY_Controller {
 		}
 
 		// delete data in table
-		if ($this->model_backbone_detail->delete($id) && $this->model_backbone->delete($id)) {
+		if ($this->bb_detail->delete($id) && $this->bb->delete($id)) {
 			$data->berhasil = 'Berhasil menghapus data.';
 		} else {
 			$data->gagal = 'Gagal menghapus data.';
 		}
 
-		$this->index();
+		redirect('manage/backbone','refresh');
 	}
 
 	public function upload(){
@@ -247,6 +248,26 @@ class Network_Backbone extends MY_Controller {
                      
             }
         redirect('manage/backbone');
+    }
+
+    public function pingCheck() {
+
+    	// create object
+    	$data = new stdClass();
+
+    	// get IP Address from table backbone
+    	$data->bbs = $this->bb->get_all();
+
+    	// loop
+    	foreach ($data->bbs as $bb) {
+    		// exec command to check status backbone
+    		$command = './handler/ping.py '. $bb->ip_addr_link;
+			$output = exec($command);
+			
+			// update status
+			$this->bb->update($bb->kode_link, array('status_link' => $output));
+    	}
+    	
     }
 }
 

@@ -58,48 +58,50 @@ $route['home']								= 'dashboard';
 $route['manage']							= 'dashboard/manage';
 
 // Network POP
-$route['manage/pop']						= 'network_pop';
-$route['manage/pop/tambah']					= 'network_pop/tambah';
-$route['manage/pop/detail']					= 'network_pop/detail';
-$route['manage/pop/detail/(:any)']			= 'network_pop/detail/$1';
-$route['manage/pop/ubah']					= 'network_pop/ubah';
-$route['manage/pop/ubah/(:any)']			= 'network_pop/ubah/$1';
-$route['manage/pop/hapus']					= 'network_pop/hapus';
-$route['manage/pop/hapus/(:any)']			= 'network_pop/hapus/$1';
+$route['manage/pop']						= 'Network_POP';
+$route['manage/pop/tambah']					= 'Network_POP/tambah';
+$route['manage/pop/detail']					= 'Network_POP/detail';
+$route['manage/pop/detail/(:any)']			= 'Network_POP/detail/$1';
+$route['manage/pop/ubah']					= 'Network_POP/ubah';
+$route['manage/pop/ubah/(:any)']			= 'Network_POP/ubah/$1';
+$route['manage/pop/hapus']					= 'Network_POP/hapus';
+$route['manage/pop/hapus/(:any)']			= 'Network_POP/hapus/$1';
 
 // Network Backbone
-$route['manage/backbone']					= 'network_backbone';
-$route['manage/backbone/tambah']			= 'network_backbone/tambah';
-$route['manage/backbone/detail']			= 'network_backbone/detail';
-$route['manage/backbone/detail/(:any)']		= 'network_backbone/detail/$1';
-$route['manage/backbone/ubah']				= 'network_backbone/ubah';
-$route['manage/backbone/ubah/(:any)']		= 'network_backbone/ubah/$1';
-$route['manage/backbone/hapus']				= 'network_backbone/hapus';
-$route['manage/backbone/hapus/(:any)']		= 'network_backbone/hapus/$1';
+$route['manage/backbone']					= 'Network_Backbone';
+$route['manage/backbone/ping']				= 'Network_Backbone/pingCheck';
+$route['manage/backbone/ping/(:any)']		= 'Network_Backbone/pingCheck/$1';
+$route['manage/backbone/tambah']			= 'Network_Backbone/tambah';
+$route['manage/backbone/detail']			= 'Network_Backbone/detail';
+$route['manage/backbone/detail/(:any)']		= 'Network_Backbone/detail/$1';
+$route['manage/backbone/ubah']				= 'Network_Backbone/ubah';
+$route['manage/backbone/ubah/(:any)']		= 'Network_Backbone/ubah/$1';
+$route['manage/backbone/hapus']				= 'Network_Backbone/hapus';
+$route['manage/backbone/hapus/(:any)']		= 'Network_Backbone/hapus/$1';
 
 // Network Vlan
-$route['manage/vlan']						= 'network_vlan';
-$route['manage/vlan/tambah']				= 'network_vlan/tambah';
-$route['manage/vlan/detail/(:any)']			= 'network_vlan/detail/$1';
-$route['manage/vlan/ubah/(:any)']			= 'network_vlan/ubah/$1';
-$route['manage/vlan/hapus/(:any)']			= 'network_vlan/hapus/$1';
+$route['manage/vlan']						= 'Network_Vlan';
+$route['manage/vlan/tambah']				= 'Network_Vlan/tambah';
+$route['manage/vlan/detail/(:any)']			= 'Network_Vlan/detail/$1';
+$route['manage/vlan/ubah/(:any)']			= 'Network_Vlan/ubah/$1';
+$route['manage/vlan/hapus/(:any)']			= 'Network_Vlan/hapus/$1';
 
 // Network Switch
-$route['manage/switch']						= 'network_switch';
-$route['manage/switch/tambah']				= 'network_switch/tambah';
-$route['manage/switch/detail/(:any)']		= 'network_switch/detail/$1';
-$route['manage/switch/ubah/(:any)']			= 'network_switch/ubah/$1';
-$route['manage/switch/hapus/(:any)']		= 'network_switch/hapus/$1';
+$route['manage/switch']						= 'Network_Switch';
+$route['manage/switch/tambah']				= 'Network_Switch/tambah';
+$route['manage/switch/detail/(:any)']		= 'Network_Switch/detail/$1';
+$route['manage/switch/ubah/(:any)']			= 'Network_Switch/ubah/$1';
+$route['manage/switch/hapus/(:any)']		= 'Network_Switch/hapus/$1';
 
 // Network Router
-$route['manage/router']						= 'network_router';
-$route['manage/router/tambah']				= 'network_router/tambah';
-$route['manage/router/detail/(:any)']		= 'network_router/detail/$1';
-$route['manage/router/ubah/(:any)']			= 'network_router/ubah/$1';
-$route['manage/router/hapus/(:any)']		= 'network_router/hapus/$1';
+$route['manage/router']						= 'Network_Router';
+$route['manage/router/tambah']				= 'Network_Router/tambah';
+$route['manage/router/detail/(:any)']		= 'Network_Router/detail/$1';
+$route['manage/router/ubah/(:any)']			= 'Network_Router/ubah/$1';
+$route['manage/router/hapus/(:any)']		= 'Network_Router/hapus/$1';
 
 // System_Log
-$route['systemlog']							= 'system_log';
+$route['systemlog']							= 'System_Log';
 
 $route['404_override'] 						= '';
 

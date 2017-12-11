@@ -10,28 +10,156 @@ class Network_Vlan extends MY_Controller {
 		parent::__construct();
 
 		// load model here
-		$this->load->model('model_backbone','bb');
-		$this->load->model('model_backbone_detail','bb_detail');
+		$this->load->model('Model_Vlan','vlan');
+        $this->load->model('Model_Pop','pop');
 	}
 	
 	public function index() {
-		$this->tampilkan('Network_Vlan');
+		// create object
+        $data = new stdClass();
+
+        // load all data in table
+        $data->all_records = $this->vlan->get_all();
+
+        // show view with data
+        $this->set_title('VLAN');
+        $this->tampilkan('Network_Vlan', $data);
 	}
 
 	public function detail($id) {
+        // create object
+        $data           = new stdClass();
+        $data->validasi = false;
+        $data->kode_vlan= $id;
+        $data->action   = base_url('manage/vlan/ubah/' . $id);
+        $data->pops     = $this->pop->get_all();
 
+
+        if ($id == '') {
+            redirect('manage/vlan/tambah');
+        }
+
+        // select data from id
+        $data->record = $this->vlan->get($id);
+
+        // show view with data
+        $this->set_title('Detail VLAN (' . $id . ')');
+        $this->tampilkan('Network_Vlan_CRUD', $data);
 	}
 
 	public function tambah() {
+        // set title
+        $this->set_title('Tambah VLAN');
 
+        // load custom library
+        $this->load->library('form_validation');
+
+        // create object
+        $data           = new stdClass();
+        $data->validasi = true;
+        $data->kode_vlan= 'vln-' . date('Ymd') . '-' . date('His');
+        $data->action   = base_url('manage/vlan/tambah');
+        $data->pops     = $this->pop->get_all();
+
+        // form_validation
+        $this->form_validation->set_rules('vlan_id','VLAN ID', 'trim|required|is_unique[vlan.vlan_id]');
+        $this->form_validation->set_rules('vlan_vendor','VLAN_Vendor', 'trim|required');
+        $this->form_validation->set_rules('vlan_kapasitas','VLAN Kapasitas', 'trim|required|integer');
+        $this->form_validation->set_rules('vlan_satuan','VLAN Satuan', 'trim|required');
+        
+        // run form_validation
+        if ($this->form_validation->run() == FALSE) {
+            $this->tampilkan('Network_Vlan_CRUD', $data);
+        } else {
+            // set variable post in array
+            $post_data = array(
+                'kode_vlan'            => $this->input->post('kode_vlan'),
+                'vlan_id'              => $this->input->post('vlan_id'),
+                'vlan_vendor'          => $this->input->post('vlan_vendor'),
+                'vlan_kapasitas'       => $this->input->post('vlan_kapasitas'),
+                'vlan_satuan'          => $this->input->post('vlan_satuan'),
+                'kode_pop'             => $this->input->post('kode_pop')
+            );
+
+            // insert into table vlan
+
+            if ($this->vlan->insert($post_data, true)) {
+                $data->berhasil = 'Berhasil menambah data.';
+            } else {
+                $data->gagal = 'Gagal menambah data.';
+            }
+
+            $this->tampilkan('Network_Vlan_CRUD', $data);
+        }
 	}
 
 	public function ubah($id) {
+        // set title
+        $this->set_title('Ubah Data (' . $id . ')');
 
+
+        // load custom library
+        $this->load->library('form_validation');
+
+        // create object
+        $data            = new stdClass();
+        $data->validasi  = true;
+        $data->kode_vlan = $id;
+        $data->action    = base_url('manage/vlan/ubah/' . $id);
+
+        if ($id == '') {
+            redirect('manage/vlan/tambah');
+        }
+
+        // form_validation
+        // form_validation
+        $this->form_validation->set_rules('vlan_id','VLAN ID', 'trim|required');
+        $this->form_validation->set_rules('vlan_vendor','VLAN_Vendor', 'trim|required');
+        $this->form_validation->set_rules('vlan_kapasitas','VLAN Kapasitas', 'trim|required|integer');
+        $this->form_validation->set_rules('vlan_satuan','VLAN Satuan', 'trim|required');
+
+        // run form_validation
+        if ($this->form_validation->run() == FALSE) {
+            $this->tampilkan('Network_Vlan_CRUD', $data);
+        } else {
+            // set variable post in array
+            $post_data = array(
+                'kode_vlan'            => $this->input->post('kode_vlan'),
+                'vlan_id'              => $this->input->post('vlan_id'),
+                'vlan_vendor'          => $this->input->post('vlan_vendor'),
+                'vlan_kapasitas'       => $this->input->post('vlan_kapasitas'),
+                'vlan_satuan'          => $this->input->post('vlan_satuan'),
+                'kode_pop'             => $this->input->post('kode_pop')
+            );
+
+            // insert into table vlan
+
+            if ($this->vlan->update($id, $post_data)) {
+                $data->berhasil = 'Berhasil mengubah data.';
+            } else {
+                $data->gagal = 'Gagal mengubah data.';
+            }
+
+            $this->tampilkan('Network_Vlan_CRUD', $data);
+        }
 	}
 
 	public function hapus($id) {
+        // create object
+        $data = new stdClass();
 
+        if ($id == '') {
+            redirect('manage/vlan/tambah');
+        }
+
+        // delete data in table
+        if ($this->vlan->delete($id)) {
+            $data->berhasil = 'Berhasil menghapus data.';
+        } else {
+            $data->gagal = 'Gagal menghapus data.';
+        }
+
+        redirect('manage/vlan','refresh');
 	}
 
 	public function upload() {

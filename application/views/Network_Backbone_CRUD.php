@@ -242,6 +242,13 @@
         }
       });
 
+      $('select').keypress(function (e) {
+        if (e.which == 13) {
+          $('#post-data').submit();
+          return false;
+        }
+      });
+
       if ($('#simpankembali').data("clicked")) {
         $('#kembali').click();
       }

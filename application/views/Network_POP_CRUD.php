@@ -1,12 +1,21 @@
 <div class="container">
   <?php if($validasi): ?>
     <?php
-      $nama_pop = set_value('nama_pop');
-      $jenis_gedung_pop = set_value('jenis_gedung_pop');
-      $tinggi_tower_pop = set_value('tinggi_tower_pop');
-      $alamat_pop = set_value('alamat_pop');
-      $latitude_pop = set_value('latitude_pop');
-      $longitude_pop = set_value('longitude_pop');
+      if ($action == base_url('manage/pop/tambah')) {
+        $nama_pop = '';
+        $jenis_gedung_pop = '';
+        $tinggi_tower_pop = '';
+        $alamat_pop = '';
+        $latitude_pop = '';
+        $longitude_pop = '';
+      } else {
+        $nama_pop = set_value('nama_pop');
+        $jenis_gedung_pop = set_value('jenis_gedung_pop');
+        $tinggi_tower_pop = set_value('tinggi_tower_pop');
+        $alamat_pop = set_value('alamat_pop');
+        $latitude_pop = set_value('latitude_pop');
+        $longitude_pop = set_value('longitude_pop');
+      }
     ?>
     <?php if(validation_errors()): ?>
       <div class="notification is-warning" id="notif">
@@ -136,6 +145,13 @@
 
 
       $('.input').keypress(function (e) {
+        if (e.which == 13) {
+          $('#post-data').submit();
+          return false;
+        }
+      });
+
+      $('select').keypress(function (e) {
         if (e.which == 13) {
           $('#post-data').submit();
           return false;

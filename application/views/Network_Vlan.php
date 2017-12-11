@@ -1,11 +1,28 @@
 <div class="container">
+  <?php
+    $action_detail  = base_url('manage/vlan/detail/');
+    $action_hapus   = base_url('manage/vlan/hapus/');
+  ?>
+  <?php if(isset($berhasil)): ?>
+  <div class="notification is-success">
+    <?php echo $berhasil; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if(isset($gagal)): ?>
+  <div class="notification is-danger">
+    <?php echo $gagal; ?>
+  </div>
+  <?php endif; ?>
+
+
   <div class="field">
     <p class="control">
-      <button class="button is-link" type="button">Buat VLAN Baru</button>
+      <a href="vlan/tambah" class="button is-link modal-button">Buat VLAN Baru</a>
     </p>
   </div>
 
-  <nav class="level" style="margin-bottom: 5px;">
+  <!-- <nav class="level" style="margin-bottom: 5px;">
     <div class="level-left">
       <div class="level-item">
         <div class="field has-addons">
@@ -44,56 +61,128 @@
           <p class="control">
             <input class="input" type="text" name="filter">
           </p>
-          
         </div>
       </div>
     </div>
-  </nav>
+  </nav> -->
+
+  <div class="field has-addons">
+    <p class="control">
+      <a class="button is-static">
+        Filter
+      </a>
+    </p>
+    <p class="control is-expanded">
+      <input class="input" type="text" name="filter" placeholder="..." autofocus="yes">
+    </p>
+  </div>
   
-  <table class="table is-bordered is-striped is-narrow is-fullwidth">
+  <table class="table is-bordered is-striped is-narrow is-fullwidth is-hoverable">
     <thead>
       <tr>
         <th>VLAN ID</th>
         <th>VLAN Vendor</th>
         <th>Kapasitas</th>
-        <th>POP</th>
         <th>Opsi</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr>
-        <td>131</td>
-        <td>Powertel</td>
-        <td>500Mbps</td>
-        <td>Cengkareng Office</td>
-        <td>
-          <a href="#" class="button is-small is-info">Lihat Detil</a>
-          <a href="#" class="button is-small is-danger">Hapus</a>
-        </td>
-      </tr>
-
-      <tr>
-        <td>302</td>
-        <td>Fibermedia</td>
-        <td>1Gbps</td>
-        <td>Trias</td>
-        <td>
-          <a href="#" class="button is-small is-info">Lihat Detil</a>
-          <a href="#" class="button is-small is-danger">Hapus</a>
-        </td>
-      </tr>
-
-      <tr>
-        <td>204</td>
-        <td>Iforte</td>
-        <td>1Gbps</td>
-        <td>Priuk</td>
-        <td>
-          <a href="#" class="button is-small is-info">Lihat Detil</a>
-          <a href="#" class="button is-small is-danger">Hapus</a>
-        </td>
-      </tr>
+      <?php if(isset($all_records) && $all_records != NULL ): ?>
+      <?php foreach ($all_records as $data): ?>
+        <tr>
+          <td><?php echo $data->vlan_id; ?></td>
+          <td><?php echo $data->vlan_vendor; ?></td>
+          <td><?php echo $data->vlan_kapasitas . ' ' . $data->vlan_satuan; ?></td>
+          <td>
+            <a id="btn-detail" class="button is-small is-info" target="<?php echo $data->kode_vlan; ?>">Lihat Detil</a>
+            <a id="btn-hapus" class="button is-small is-danger modal-button" data-target="modal-delete" target="<?php echo $data->kode_vlan; ?>">Hapus</a>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+      <?php else: ?>
+        <tr>
+          <td colspan="8">Data tidak ada</td>
+        </tr>
+      <?php endif; ?>
     </tbody>
-  </table>      
+   <!--  <tfoot>
+      <tr>
+        <th>Total Data</th>
+      </tr>
+    </tfoot> -->
+  </table>  
+
+  <!-- <nav class="pagination" role="navigation" aria-label="pagination">
+    <a class="pagination-previous" title="This is the first page" disabled>Previous</a>
+    <a class="pagination-next">Next page</a>
+    <ul class="pagination-list">
+      <li>
+        <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+      </li>
+      <li>
+        <a class="pagination-link" aria-label="Goto page 2">2</a>
+      </li>
+      <li>
+        <a class="pagination-link" aria-label="Goto page 3">3</a>
+      </li>
+    </ul>
+  </nav>
+</div> -->
+
+<div class="modal" id="modal-delete">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Hapus</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <p>Apakah yakin ingin menghapus data ini?</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button id="ya" class="button is-danger">Ya</button>
+      <button id="tidak" class="button">Tidak</button>
+    </footer>
+  </div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var detail_target = '<?php echo $action_detail; ?>';
+    var hapus_target = '<?php echo $action_hapus; ?>';
+    
+    $('[id^="btn-hapus"]').click(function(e){
+      // hold
+      e.preventDefault();
+
+      // get action
+      var action = $(this).attr('target');
+
+      // add attribute
+      $('#ya').attr('target', action);
+    });
+
+    $('[id^="btn-detail"]').click(function(e){
+      // hold
+      e.preventDefault();
+
+      // get action
+      var action = $(this).attr('target');
+
+      // call URL
+      window.location = detail_target + action;
+    });
+
+    $('#ya').click(function(e){
+      // hold
+      e.preventDefault();
+
+      // get action
+      var action = $(this).attr('target');
+
+      // call URL
+      window.location = hapus_target + action;
+    });
+
+  });
+</script>
