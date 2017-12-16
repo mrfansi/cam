@@ -88,6 +88,8 @@ $route['manage/vlan/hapus/(:any)']			= 'Network_Vlan/hapus/$1';
 
 // Network Switch
 $route['manage/switch']						= 'Network_Switch';
+$route['manage/switch/import']				= 'Network_Switch/import';
+$route['manage/switch/export']				= 'Network_Switch/export';
 $route['manage/switch/tambah']				= 'Network_Switch/tambah';
 $route['manage/switch/detail/(:any)']		= 'Network_Switch/detail/$1';
 $route['manage/switch/ubah/(:any)']			= 'Network_Switch/ubah/$1';

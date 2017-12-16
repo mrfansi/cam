@@ -30,29 +30,30 @@
 			    	<a class="navbar-item" href="<?php echo base_url('home'); ?>">
 			        	Home
 			      	</a>
+			      	<a class="navbar-item" href="<?php echo base_url('manage/pop'); ?>">
+			        	POP
+			      	</a>
+
+			      	<a class="navbar-item" href="<?php echo base_url('manage/backbone'); ?>">
+			        	Backbone
+			      	</a>
+			      	<a class="navbar-item" href="<?php echo base_url('manage/vlan'); ?>">
+			        	VLAN
+			      	</a>
+			      	<a class="navbar-item" href="<?php echo base_url('manage/switch'); ?>">
+			        	Switch
+			      	</a>
+			      	<a class="navbar-item" href="<?php echo base_url('manage/router'); ?>">
+			        	Router
+			      	</a>
 
 			      	<div class="navbar-item has-dropdown is-hoverable">
-			      		<a class="navbar-link" href="<?php echo base_url('manage'); ?>">
-			      			Manage	
+			      		<a class="navbar-link" href="#">
+			      			Upload Script	
 			      		</a>
-
 			      		<div class="navbar-dropdown is-boxed">
-			      			<a class="navbar-item" href="<?php echo base_url('manage/pop'); ?>">
-					        	POP
-					      	</a>
-					    	<a class="navbar-item" href="<?php echo base_url('manage/backbone'); ?>">
-					        	Backbone
-					      	</a>
-					      	<a class="navbar-item" href="<?php echo base_url('manage/vlan'); ?>">
-					        	VLAN
-					      	</a>
-					      	<a class="navbar-item" href="<?php echo base_url('manage/switch'); ?>">
-					        	Switch
-					      	</a>
-					      	<a class="navbar-item" href="<?php echo base_url('manage/router'); ?>">
-					        	Router
-					      	</a>
-					      	
+			      			<a class="navbar-item" href="<?php echo base_url('script/mikrotik'); ?>">Mikrotik</a>
+					      	<a class="navbar-item" href="<?php echo base_url('script/cisco'); ?>">Cisco Switch Catalyst</a>
 					    </div>
 			      	</div>
 
@@ -62,6 +63,7 @@
 			    </div>
 
 			    <div class="navbar-end">
+			    	<p class="navbar-item">Halo, <?php echo $_SESSION['user_id']; ?></p>
 			    	<a class="navbar-item" href="<?php echo base_url('auth/logout'); ?>">
 			        	Keluar
 			      	</a>

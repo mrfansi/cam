@@ -8,6 +8,6 @@ resp = os.system("ping -c 1 " + hostname)
 
 # check respon
 if resp == 0:
-	print("UP")
+	print("1")
 else:
-	print("DOWN")
+	print("0")

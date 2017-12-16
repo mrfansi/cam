@@ -17,199 +17,254 @@
   </div>
   <?php endif; ?>
 
+  <?php if(isset($_SESSION['berhasil'])): ?>
+  <div class="notification is-success">
+    <?php echo $_SESSION['berhasil']; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if(isset($_SESSION['gagal'])): ?>
+  <div class="notification is-danger">
+    <?php echo $_SESSION['gagal']; ?>
+  </div>
+  <?php endif; ?>
+
+  <script type="text/javascript">
+    var detil_action  = '<?php echo $action_detail; ?>';
+    var hapus_action  = '<?php echo $action_hapus; ?>';
+
+    function baru() {
+      // add modal
+      var modal = $('#modal-crud');
+      var body = modal.find('div.modal-card > section');
+
+      // show modal
+      modal.addClass('is-active');
+
+      // show body
+      body.load( "<?php echo base_url('manage/backbone/tambah'); ?> #post-data" );
+    }
+
+    function detil(data) {
+      var detil = data;
+      var id    = detil.attr('data');
+
+      // add modal
+      var modal = $('#modal-crud');
+      var body = modal.find('div.modal-card > section');
+
+      // show modal
+      modal.addClass('is-active');
+
+      // show body
+      body.load( "<?php echo base_url('manage/backbone/detail/'); ?>" + id + " #post-data" );
+    }
+
+    function buka(data) {
+      var buka = data;
+      var id   = buka.attr('data');
+
+      open(id);
+    }
+
+    function hapus(data) {
+      var hapus = data;
+      var id    = hapus.attr('data');
+
+      // add modal
+      var del = $('#modal-delete');
+      // add class
+      del.addClass('is-active');
+      // add atribut
+      var target = del.find('form');
+      target.attr('action', hapus_action + id);
+    }
+  </script>
 
   <div class="field">
     <p class="control">
-      <a href="<?php echo $action_tambah; ?>" class="button is-link">Buat Link Baru</a>
+      <button type="button" class="button is-link" onclick="baru()">Buat Baru</button>
+      <button type="button" class="button is-link">Import dari Excel</button>
+      <button type="button" class="button is-link">Export ke Excel</button>
     </p>
   </div>
 
-  <!-- <nav class="level" style="margin-bottom: 5px;">
-    <div class="level-left">
-      <div class="level-item">
-        <div class="field has-addons">
-          <p class="control">
-            <a class="button is-static">
-              Tampilkan
-            </a>
-          </p>
-          <p class="control">
-            <div class="select">
-              <select name="show_row">
-                <option value="10">10</option>
-                <option value="30">30</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-            </div>
-          </p>
-          <p class="control">
-            <a class="button is-static">
-              Halaman
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="level-right">
-      <div class="level-item">
-        <div class="field has-addons">
-          <p class="control">
-            <a class="button is-static">
-              Filter
-            </a>
-          </p>
-          <p class="control">
-            <input class="input" type="text" name="filter">
-          </p>
-          
-        </div>
-      </div>
-    </div>
-  </nav> -->
-
-  <div class="field has-addons">
-    <p class="control">
-      <a class="button is-static">
-        Filter
-      </a>
-    </p>
+  <div class="field">
     <p class="control is-expanded">
-      <input class="input" type="text" name="filter" placeholder="..." autofocus="yes">
+      <input id="filter" class="input" type="text" name="filter" placeholder="Cari data Backbone disini..." autofocus="yes">
     </p>
   </div>
   
-  <table class="table is-bordered is-striped is-narrow is-fullwidth is-hoverable" id="data-table">
-    <thead>
-      <tr>
-        <th>Nama Link</th>
-        <th>Kapasitas</th>
-        <th>IP Address</th>
-        <th>TX Freq</th>
-        <th>RX Freq</th>
-        <th>Signal</th>
-        <th>Ping Status</th>
-        <th>Opsi</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <?php if(isset($all_records) && $all_records != NULL ): ?>
-      <?php foreach ($all_records as $data): ?>
+  <div id="data" class="is-small">
+    <table class="table is-narrow is-fullwidth is-hoverable" id="data-table">
+      <thead>
         <tr>
-          <td><?php echo $data->nama_link; ?></td>
-          <td><?php echo $data->kapasitas_link . ' Mbps'; ?></td>
-          <td id="ipaddr"><?php echo $data->ip_addr_link; ?></td>
-          <td><?php echo $data->txfreq_link; ?></td>
-          <td><?php echo $data->rxfreq_link; ?></td>
-          <td><?php echo $data->signal_link; ?></td>
-          <td id="status" class="<?= $data->status_link == 'UP' ? 'is-success' : 'is-danger' ;?>"><?php echo $data->status_link; ?></td>
-          <td>
-            <a id="btn-detail" class="button is-small is-info" target="<?php echo $data->kode_link; ?>">Lihat Detil</a>
-            <a id="btn-open" class="button is-small is-info" href="http://<?php echo $data->ip_addr_link; ?>">Buka</a>
-            <a id="btn-hapus" class="button is-small is-danger modal-button" data-target="modal-delete" target="<?php echo $data->kode_link; ?>">Hapus</a>
-          </td>
+          <th>Nama Link</th>
+          <th>Kapasitas</th>
+          <th>IP Address</th>
+          <th>TX Freq</th>
+          <th>RX Freq</th>
+          <th>Signal</th>
+          <th>Ping Status</th>
+          <th>Opsi</th>
         </tr>
-      <?php endforeach; ?>
-      <?php else: ?>
+      </thead>
 
-      <?php endif; ?>
-    </tbody>
-  </table>      
+      <tbody>
+        <?php if(isset($all_records) && $all_records != NULL ): ?>
+        <?php foreach ($all_records as $data): ?>
+          <tr <?= $data->status_link == false ? 'class="is-down" id="data-row"' : '' ;?>>
+            <td><?php echo $data->nama_link; ?></td>
+            <td><?php echo $data->kapasitas_link . ' Mbps'; ?></td>
+            <td id="ipaddr"><?php echo $data->ip_addr_link; ?></td>
+            <td><?php echo $data->txfreq_link; ?></td>
+            <td><?php echo $data->rxfreq_link; ?></td>
+            <td><?php echo $data->signal_link; ?></td>
+            <td id="status" class="has-text-centered <?= $data->status_link == false ? 'down' : 'up' ;?>"><?= $data->status_link == true ? 'Up' : 'Down'; ?></td>
+            <td>
+              <button type="button" class="button is-small is-link" data="<?php echo $data->kode_link; ?>" onclick="detil($(this))">Lihat Detil</button>
+              <button type="button" class="button is-small is-link" data="http://<?php echo $data->ip_addr_link; ?>" onclick="buka($(this))">Buka</button>
+              <button type="button" class="button is-small is-link" data="<?php echo $data->kode_link; ?>" onclick="hapus($(this))">Hapus</button>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+
+        <?php endif; ?>
+      </tbody>
+    </table>
+  </div>      
 </div>
 <div class="modal" id="modal-delete">
   <div class="modal-background"></div>
-  <div class="modal-card">
+  <form class="modal-card" method="GET">
     <header class="modal-card-head">
       <p class="modal-card-title">Hapus</p>
-      <button class="delete" aria-label="close"></button>
+      <button type="button" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <p>Apakah yakin ingin menghapus data ini?</p>
     </section>
     <footer class="modal-card-foot">
-      <button id="ya" class="button is-danger">Ya</button>
-      <button id="tidak" class="button">Tidak</button>
+      <button type="submit" class="button is-danger">Ok, Saya yakin</button>
+      <button type="button" class="button">Tidak</button>
     </footer>
+  </form>
+</div>
+<div class="modal" id="modal-crud">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Data Backbone</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body"></section>
   </div>
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-    var detail_target = '<?php echo $action_detail; ?>';
-    var hapus_target = '<?php echo $action_hapus; ?>';
-    
-    $('[id^="btn-hapus"]').click(function(e){
-      // hold
-      e.preventDefault();
 
-      // get action
-      var action = $(this).attr('target');
+    var update = true;
 
-      // add attribute
-      $('#ya').attr('target', action);
+    $(function() {
+      setTimeout(function(){
+        $('body > div.container > div.notification').fadeOut();
+      }, 5000);
     });
-
-    $('[id^="btn-detail"]').click(function(e){
-      // hold
-      e.preventDefault();
-
-      // get action
-      var action = $(this).attr('target');
-
-      // call URL
-      window.location = detail_target + action;
-    });
-
-    $('[id^="btn-open"]').click(function(e){
-    	// hold
-     	e.preventDefault();
-      	var open = $(this);
-
-      	open.attr('target', '_blank');
-
-      	// get action
-      	var href = open.attr('href');
-
-      	// call URL
-      	window.open(href);
-
-      	return false;
-    });
-
-    $('#ya').click(function(e){
-      // hold
-      e.preventDefault();
-
-      // get action
-      var action = $(this).attr('target');
-
-      // call URL
-      window.location = hapus_target + action;
-    });
-
-    // setInterval(function(){
-    //    $('#data-table > tbody  > tr').each(function() {
-
-    //     ipaddr = $(this).find('td#ipaddr').text();
-    //     $status = $(this).find('td#status');
-
-    //     // set URL to Test
-    //     url = '<?php echo base_url('manage/backbone/ping/') ?>' + ipaddr;
-        
-    //     // get
-    //     $.ajax({url: url, success: function(result){
-    //       if(result == 'DOWN') {
-    //         $status.removeClass('is-success').addClass('is-danger');
-    //         $status.text('DOWN');
-    //       } else if(result == 'UP') {
-    //         $status.removeClass('is-danger').addClass('is-success');
-    //         $status.text('UP');
-    //       }
-    //     }});
-    //   });
-    // }, 10000)
    
+    $("#filter").keyup(function () {
+      //split the current value of searchInput
+      var data = this.value.split(" ");
+      //create a jquery object of the rows
+      var jo = $("#data-table").find("tbody > tr");
+      if (this.value == "") {
+          // set update
+          update = true;
 
+          // show
+          jo.show();
+          return;
+      }
+
+      // set update
+      update = false;
+
+      //hide all the rows
+      jo.hide();
+
+      //Recusively filter the jquery object to get results.
+      jo.filter(function (i, v) {
+          var $t = $(this);
+          for (var d = 0; d < data.length; ++d) {
+              if ($t.is(":contains('" + data[d] + "')")) {
+                  return true;
+              }
+          }
+          return false;
+      })
+
+      //show the rows that match.
+      .show();
+
+    }).focus(function () {
+        this.value = "";
+        $(this).css({
+            "color": "black"
+        });
+        $(this).unbind('focus');
+    }).css({
+        "color": "#C0C0C0"
+    });
+
+    $(function() {
+      setInterval(function(){
+        if (update) {
+          $( "#data" ).load( "<?php echo base_url('manage/backbone'); ?> #data-table" );
+        }
+      }, 5000); //refresh every 2 seconds
+    });
+
+    $(function() {
+      var on = true;
+      setInterval(function() {
+          on = !on;
+          if (on) {
+              $('[id^="data-row"]').addClass('is-down');
+          } else {
+              $('[id^="data-row"]').removeClass('is-down');
+          }
+      }, 500);
+    });
+
+    $(function() {
+    	$('#data-table > thead > tr > th').click(function(){
+    		update = false;
+    	});
+    });
+    
   });
+</script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/plugin/jquery.sortelements.js'); ?>"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+    	var table = $('table');
+
+    	$('#data-table > thead > tr > th').each(function(){
+    		var th = $(this),
+    			thindex = th.index(),
+    			inverse = false;
+
+    		th.click(function(){
+    			table.find('td').filter(function(){
+    				return $(this).index() === thindex;
+    			}).sortElements(function(a, b){
+    				return $.text([a]) > $.text([b]) ? inverse ? -1 : 1 : inverse ? 1 : -1;
+    			}, function(){
+    				return this.parentNode;
+    			});
+
+    			inverse = !inverse;
+    		})
+    	});
+    });
 </script>

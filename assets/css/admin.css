@@ -121,3 +121,21 @@ nav.navbar {
   background-color: #515151;
   display: inline-block;
 }
+
+.table tr.is-down {
+  background-color: #ff3860;
+  color: #fff;
+}
+
+.table tr.is-down td {
+  background-color: #ff3860;
+  color: #fff;
+}
+
+.table tr td.up {
+  color: hsl(141, 71%, 48%);
+}
+
+.table tr td.down {
+  color: hsl(348, 100%, 61%);
+}

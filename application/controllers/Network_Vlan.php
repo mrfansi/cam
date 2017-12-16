@@ -84,12 +84,12 @@ class Network_Vlan extends MY_Controller {
             // insert into table vlan
 
             if ($this->vlan->insert($post_data, true)) {
-                $data->berhasil = 'Berhasil menambah data.';
+                $this->session->set_flashdata('berhasil', 'Berhasil menambah data.');
             } else {
-                $data->gagal = 'Gagal menambah data.';
+                $this->session->set_flashdata('gagal', 'Gagal menambah data.');
             }
 
-            $this->tampilkan('Network_Vlan_CRUD', $data);
+            redirect('manage/vlan','refresh');
         }
 	}
 
@@ -135,12 +135,12 @@ class Network_Vlan extends MY_Controller {
             // insert into table vlan
 
             if ($this->vlan->update($id, $post_data)) {
-                $data->berhasil = 'Berhasil mengubah data.';
+                $this->session->set_flashdata('berhasil', 'Berhasil mengubah data.');
             } else {
-                $data->gagal = 'Gagal mengubah data.';
+                $this->session->set_flashdata('gagal', 'Gagal mengubah data.');
             }
 
-            $this->tampilkan('Network_Vlan_CRUD', $data);
+            redirect('manage/vlan','refresh');
         }
 	}
 
@@ -154,9 +154,9 @@ class Network_Vlan extends MY_Controller {
 
         // delete data in table
         if ($this->vlan->delete($id)) {
-            $data->berhasil = 'Berhasil menghapus data.';
+            $this->session->set_flashdata('berhasil', 'Berhasil menghapus data.');
         } else {
-            $data->gagal = 'Gagal menghapus data.';
+            $this->session->set_flashdata('gagal', 'Gagal menghapus data.');
         }
 
         redirect('manage/vlan','refresh');

@@ -83,13 +83,13 @@ class Network_POP extends MY_Controller {
 
 			// insert into table pop
 
-			if ($this->pop->insert($post_data, true)) {
-				$data->berhasil = 'Berhasil menambah data.';
+			if ($this->pop->insert($post_data)) {
+				$this->session->set_flashdata('berhasil', 'Berhasil menambah data.');
 			} else {
-				$data->gagal = 'Gagal menambah data.';
+				$this->session->set_flashdata('gagal', 'Gagal menambah data.');
 			}
 
-			$this->tampilkan('Network_POP_CRUD', $data);
+			redirect('manage/pop','refresh');
 		}
 	}
 
@@ -113,7 +113,7 @@ class Network_POP extends MY_Controller {
 
 
 		// form_validation
-		$this->form_validation->set_rules('nama_pop','Nama POP', 'trim|required|is_unique[pop.nama_pop]');
+		$this->form_validation->set_rules('nama_pop','Nama POP', 'trim|required');
 		$this->form_validation->set_rules('jenis_gedung_pop','Jenis Gedung', 'trim|required');
 		$this->form_validation->set_rules('tinggi_tower_pop','Tinggi Tower', 'trim|required|integer');
 	
@@ -133,13 +133,13 @@ class Network_POP extends MY_Controller {
 
 			// update into table pop
 
-			if ($this->pop->update($id, $post_data)) {
-				$data->berhasil = 'Berhasil mengubah data.';
+			if ($this->pop->update($post_data, $id)) {
+				$this->session->set_flashdata('berhasil', 'Berhasil mengubah data.');
 			} else {
-				$data->gagal = 'Gagal mengubah data.';
+				$this->session->set_flashdata('gagal', 'Gagal mengubah data.');
 			}
 
-			$this->tampilkan('Network_POP_CRUD', $data);
+			redirect('manage/pop','refresh');
 		}
 	}
 
@@ -149,9 +149,9 @@ class Network_POP extends MY_Controller {
 
 		// delete data in table
 		if ($this->pop->delete($id)) {
-			$data->berhasil = 'Berhasil menghapus data.';
+			$this->session->set_flashdata('berhasil', 'Berhasil menghapus data.');
 		} else {
-			$data->gagal = 'Gagal menghapus data.';
+			$this->session->set_flashdata('gagal', 'Gagal menghapus data.');
 		}
 
 		redirect('manage/pop','refresh');

@@ -54,77 +54,74 @@
   </div>
   <?php endif; ?>
 
-  <form class="card" method="POST" autocomplete="off" action="<?php echo $action; ?>" id="post-data">
+  <form method="POST" autocomplete="off" action="<?php echo $action; ?>" id="post-data">
     <input type="hidden" name="kode_pop" value="<?php echo $kode_pop; ?>">
-    <header class="card-header">
-      <p class="card-header-title">Data Backbone (<b><?php echo $kode_pop; ?></b>)</p>
-    </header>
-    <section class="card-content">
-      <div class="field">
-        <p class="control">
-          <label class="label">Nama POP (Wajib diisi)</label>
-          <input type="text" class="input" name="nama_pop" placeholder="POP" autofocus="yes" value="<?php echo $nama_pop ?>">
-        </p>
-      </div>
+    <div class="field">
+      <p class="control">
+        <label class="label">Nama POP (Wajib diisi)</label>
+        <input type="text" class="input" name="nama_pop" placeholder="POP" autofocus="yes" value="<?php echo $nama_pop ?>">
+      </p>
+    </div>
 
-      <div class="field is-grouped">
-        <div class="control is-expanded">
-          <label class="label">Jenis Gedung (Wajib diisi)</label>
-          <div class="select is-fullwidth">
-            <select name="jenis_gedung_pop">
-              <option value="" selected disabled>Jenis Gedung</option>
-              <option value="Perumahan" <?= $jenis_gedung_pop == 'Perumahan' ? 'selected' : ''; ?>>Perumahan</option>
-              <option value="Apartement" <?= $jenis_gedung_pop == 'Apartement' ? 'selected' : '' ?>>Apartement</option>
-              <option value="Hotel" <?= $jenis_gedung_pop == 'Hotel' ? 'selected' : '' ?>>Hotel</option>
-              <option value="Kantor" <?= $jenis_gedung_pop == 'Kantor' ? 'selected' : '' ?>>Kantor</option>
-              <option value="Sekolah" <?= $jenis_gedung_pop == 'Sekolah' ? 'selected' : '' ?>>Sekolah</option>
-              <option value="Universitas" <?= $jenis_gedung_pop == 'Universitas' ? 'selected' : '' ?>>Universitas</option>
-              <option value="Lainnya" <?= $jenis_gedung_pop == 'Lainnya' ? 'selected' : '' ?>>Lainnya</option>
-            </select>
+    <div class="field is-grouped">
+      <div class="control is-expanded">
+        <label class="label">Jenis Gedung (Wajib diisi)</label>
+        <div class="select is-fullwidth">
+          <select name="jenis_gedung_pop">
+            <option value="" selected disabled>Jenis Gedung</option>
+            <option value="Perumahan" <?= $jenis_gedung_pop == 'Perumahan' ? 'selected' : ''; ?>>Perumahan</option>
+            <option value="Apartement" <?= $jenis_gedung_pop == 'Apartement' ? 'selected' : '' ?>>Apartement</option>
+            <option value="Hotel" <?= $jenis_gedung_pop == 'Hotel' ? 'selected' : '' ?>>Hotel</option>
+            <option value="Kantor" <?= $jenis_gedung_pop == 'Kantor' ? 'selected' : '' ?>>Kantor</option>
+            <option value="Sekolah" <?= $jenis_gedung_pop == 'Sekolah' ? 'selected' : '' ?>>Sekolah</option>
+            <option value="Universitas" <?= $jenis_gedung_pop == 'Universitas' ? 'selected' : '' ?>>Universitas</option>
+            <option value="Lainnya" <?= $jenis_gedung_pop == 'Lainnya' ? 'selected' : '' ?>>Lainnya</option>
+          </select>
+        </div>
+      </div>
+      <p class="control is-expanded">
+        <div class="field has-addons">
+          
+          <div class="control">
+            <label class="label">Tinggi Tower (Wajib diisi</label>
+            <input type="text" class="input" name="tinggi_tower_pop" placeholder="Tinggi Tower" value="<?php echo $tinggi_tower_pop; ?>">
+            
+          </div>
+          <div class="control">
+            <label class="label">)</label>
+            <a class="button is-static">
+              Meter
+            </a>
           </div>
         </div>
-        <p class="control is-expanded">
-          <div class="field has-addons">
-            
-            <div class="control">
-              <label class="label">Tinggi Tower (Wajib diisi</label>
-              <input type="text" class="input" name="tinggi_tower_pop" placeholder="Tinggi Tower" value="<?php echo $tinggi_tower_pop; ?>">
-              
-            </div>
-            <div class="control">
-              <label class="label">)</label>
-              <a class="button is-static">
-                Meter
-              </a>
-            </div>
-          </div>
-        </p>
-      </div>
+      </p>
+    </div>
 
-      <div class="field">
-        <p class="control">
-          <label class="label">Alamat POP</label>
-          <textarea class="textarea" placeholder="Alamat Lengkap" name="alamat_pop"><?php echo $alamat_pop; ?></textarea>
-        </p>
-      </div>
+    <div class="field">
+      <p class="control">
+        <label class="label">Alamat POP</label>
+        <textarea class="textarea" placeholder="Alamat Lengkap" name="alamat_pop"><?php echo $alamat_pop; ?></textarea>
+      </p>
+    </div>
 
-      <div class="field is-grouped">
-        <p class="control is-expanded">
-          <label class="label">Latitude</label>
-          <input type="text" class="input" name="latitude_pop" placeholder="Latitude" value="<?php echo $latitude_pop; ?>">
-        </p>
-        <p class="control is-expanded">
-          <label class="label">Longitude</label>
-          <input type="text" class="input" name="longitude_pop" placeholder="Longitude" value="<?php echo $longitude_pop; ?>">
-        </p>
-      </div>
+    <div class="field is-grouped">
+      <p class="control is-expanded">
+        <label class="label">Latitude</label>
+        <input type="text" class="input" name="latitude_pop" placeholder="Latitude" value="<?php echo $latitude_pop; ?>">
+      </p>
+      <p class="control is-expanded">
+        <label class="label">Longitude</label>
+        <input type="text" class="input" name="longitude_pop" placeholder="Longitude" value="<?php echo $longitude_pop; ?>">
+      </p>
+    </div>
 
-    </section>
-    <footer class="card-footer">
-      <a class="card-footer-item" id="simpan">Simpan</a>
-      <a class="card-footer-item" id="kembali">Kembali</a>
-    </footer>
+    <div class="field">
+      <p class="control is-expanded">
+        <button type="submit" class="button is-link is-fullwidth" >Simpan</button>
+      </p>
+    </div>
   </form>
+
   <script type="text/javascript">
     $(document).ready(function(){
 

@@ -9,7 +9,6 @@ class Network_Backbone extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('Model_Backbone','bb');
-		$this->load->model('Model_Backbone_detail','bb_detail');
 
 		// load custom library
 		$this->load->library(array('PHPExcel','PHPExcel/IOFactory'));
@@ -20,7 +19,7 @@ class Network_Backbone extends MY_Controller {
 		$data = new stdClass();
 
 		// load all data in table
-		$data->all_records = $this->bb->with('bb_detail')->get_all();
+		$data->all_records = $this->bb->get_all();
 
 		// show view with data
 		$this->set_title('Backbone');
@@ -28,6 +27,8 @@ class Network_Backbone extends MY_Controller {
 	}
 
 	public function detail($id) {
+		// load model
+		$this->load->model('Model_Backbone_detail','bb_detail');
 	
 		// create object
 		$data 			= new stdClass();
@@ -40,8 +41,7 @@ class Network_Backbone extends MY_Controller {
 		}
 
 		// select data from id
-		$data->record 			= $this->bb->get($id);
-		$data->record->detail 	= $this->bb_detail->get($id);
+		$data->record = $this->bb_detail->with_backbone()->get($id);
 		
 		// show view with data
 		$this->set_title('Detail (' . $id . ')');
@@ -49,6 +49,9 @@ class Network_Backbone extends MY_Controller {
 	}
 
 	public function tambah() {
+		// load model
+		$this->load->model('Model_Backbone_detail','bb_detail');
+
 		// set title
 		$this->set_title('Tambah Link');
 
@@ -64,14 +67,13 @@ class Network_Backbone extends MY_Controller {
 		// form_validation
 		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required|is_unique[backbone.nama_link]');
 		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|required');
-		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required|valid_ip');
+		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required|valid_ip|is_unique[backbone.ip_addr_link]');
 		$this->form_validation->set_rules('product_link','Hardware', 'trim|required');
 		$this->form_validation->set_rules('txfreq_link','TX Freq', 'trim|required');
 		$this->form_validation->set_rules('rxfreq_link','RX Freq', 'trim|required');
 		$this->form_validation->set_rules('signal_link','Signal', 'trim|required|integer');
 		$this->form_validation->set_rules('range_link','Jarak', 'trim|integer');
 		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|integer');
-		$this->form_validation->set_rules('mrmc_link','MRMC', 'trim|integer');
 
 
 		// run form_validation
@@ -94,9 +96,7 @@ class Network_Backbone extends MY_Controller {
 			// set variable post detail in array
 			$post_data_detail = array(
 				'kode_link'				=> $this->input->post('kode_link'),
-				'ssid_link'				=> $this->input->post('ssid_link'),
 				'mse_link'				=> $this->input->post('mse_link'),
-				'mrmc_link'				=> $this->input->post('mrmc_link'),
 				'linkid_link'			=> $this->input->post('linkid_link'),
 				'range_link'			=> $this->input->post('range_link'),
 				'txrange_link'			=> $this->input->post('txrange_link'),
@@ -105,16 +105,19 @@ class Network_Backbone extends MY_Controller {
 
 			// insert into table pop
 			if ($this->bb->insert($post_data, true) && $this->bb_detail->insert($post_data_detail, true)) {
-				$data->berhasil = 'Berhasil menambah data.';
+				$this->session->set_flashdata('berhasil', 'Berhasil menambah data.');
 			} else {
-				$data->gagal = 'Gagal menambah data.';
+				$this->session->set_flashdata('gagal', 'Gagal menambah data.');
 			}
 
-			$this->tampilkan('Network_Backbone_CRUD', $data);
+			redirect('manage/backbone','refresh');
 		}
 	}
 
 	public function ubah($id) {
+		// load model
+		$this->load->model('Model_Backbone_detail','bb_detail');
+
 		// set title
 		$this->set_title('Ubah Data (' . $id . ')');
 
@@ -135,14 +138,12 @@ class Network_Backbone extends MY_Controller {
 		// form_validation
 		$this->form_validation->set_rules('nama_link','Nama Link', 'trim|required');
 		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|required');
-		$this->form_validation->set_rules('ip_addr_link','IP Address', 'trim|required|valid_ip');
 		$this->form_validation->set_rules('product_link','Hardware', 'trim|required');
 		$this->form_validation->set_rules('txfreq_link','TX Freq', 'trim|required');
 		$this->form_validation->set_rules('rxfreq_link','RX Freq', 'trim|required');
 		$this->form_validation->set_rules('signal_link','Signal', 'trim|required|integer');
 		$this->form_validation->set_rules('range_link','Jarak', 'trim|integer');
 		$this->form_validation->set_rules('kapasitas_link','Kapasitas', 'trim|integer');
-		$this->form_validation->set_rules('mrmc_link','MRMC', 'trim|integer');
 
 		// run form_validation
 		if ($this->form_validation->run() == FALSE) {
@@ -152,7 +153,6 @@ class Network_Backbone extends MY_Controller {
 			$post_data = array(
 				'nama_link'				=> $this->input->post('nama_link'),
 				'kapasitas_link'		=> $this->input->post('kapasitas_link'),
-				'ip_addr_link'			=> $this->input->post('ip_addr_link'),
 				'product_link'			=> $this->input->post('product_link'),
 				'txfreq_link'			=> $this->input->post('txfreq_link'),
 				'rxfreq_link'			=> $this->input->post('rxfreq_link'),
@@ -161,9 +161,7 @@ class Network_Backbone extends MY_Controller {
 
 			// set variable post detail in array
 			$post_data_detail = array(
-				'ssid_link'				=> $this->input->post('ssid_link'),
 				'mse_link'				=> $this->input->post('mse_link'),
-				'mrmc_link'				=> $this->input->post('mrmc_link'),
 				'linkid_link'			=> $this->input->post('linkid_link'),
 				'range_link'			=> $this->input->post('range_link'),
 				'txrange_link'			=> $this->input->post('txrange_link'),
@@ -171,17 +169,20 @@ class Network_Backbone extends MY_Controller {
 			);
 
 			// insert into table backbone dan backbone_detail
-			if ($this->bb->update($id, $post_data) && $this->bb_detail->update($id, $post_data_detail)) {
-				$data->berhasil = 'Berhasil mengubah data.';
+			if ($this->bb->update($post_data, $id) && $this->bb_detail->update($post_data_detail, $id)) {
+				$this->session->set_flashdata('berhasil', 'Berhasil mengubah data.');
 			} else {
-				$data->gagal = 'Gagal mengubah data.';
+				$this->session->set_flashdata('gagal', 'Gagal mengubah data.');
 			}
 
-			$this->tampilkan('Network_Backbone_CRUD', $data);
+			redirect('manage/backbone','refresh');
 		}
 	}
 
 	public function hapus($id) {
+		// load model
+		$this->load->model('Model_Backbone_detail','bb_detail');
+		
 		// create object
 		$data = new stdClass();
 
@@ -191,9 +192,9 @@ class Network_Backbone extends MY_Controller {
 
 		// delete data in table
 		if ($this->bb_detail->delete($id) && $this->bb->delete($id)) {
-			$data->berhasil = 'Berhasil menghapus data.';
+			$this->session->set_flashdata('berhasil', 'Berhasil menghapus data.');
 		} else {
-			$data->gagal = 'Gagal menghapus data.';
+			$this->session->set_flashdata('gagal', 'Gagal menghapus data.');
 		}
 
 		redirect('manage/backbone','refresh');
@@ -248,26 +249,6 @@ class Network_Backbone extends MY_Controller {
                      
             }
         redirect('manage/backbone');
-    }
-
-    public function pingCheck() {
-
-    	// create object
-    	$data = new stdClass();
-
-    	// get IP Address from table backbone
-    	$data->bbs = $this->bb->get_all();
-
-    	// loop
-    	foreach ($data->bbs as $bb) {
-    		// exec command to check status backbone
-    		$command = './handler/ping.py '. $bb->ip_addr_link;
-			$output = exec($command);
-			
-			// update status
-			$this->bb->update($bb->kode_link, array('status_link' => $output));
-    	}
-    	
     }
 }
 

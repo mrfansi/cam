@@ -51,59 +51,56 @@
   </div>
   <?php endif; ?>
 
-  <form class="card" method="POST" autocomplete="off" action="<?php echo $action; ?>" id="post-data">
+  <form method="POST" autocomplete="off" action="<?php echo $action; ?>" id="post-data">
     <input type="hidden" name="kode_vlan" value="<?php echo $kode_vlan; ?>">
-    <header class="card-header">
-      <p class="card-header-title">Data Vlan (<b><?php echo $kode_vlan; ?></b>)</p>
-    </header>
-    <section class="card-content">
-      <div class="field">
-        <label class="label">POP</label>
-          <div class="select is-fullwidth">
-            <select name="kode_pop" autofocus="yes">
-              <option value="" selected disabled>Pilih POP</option>
-              <?php foreach ($pops as $pop): ?>
-              <option value="<?php echo $pop->kode_pop; ?>" <?= $kode_pop == $pop->kode_pop ? 'selected' : ''; ?>><?php echo $pop->nama_pop; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-      </div>
-
-      <div class="field is-grouped">
-        <p class="control is-expanded">
-          <label class="label">VLAN ID (Wajib diisi)</label>
-          <input type="text" class="input" name="vlan_id" placeholder="VLAN ID" value="<?php echo $vlan_id ?>">
-        </p>
-
-        <p class="control is-expanded">
-          <label class="label">VLAN Vendor (Wajib diisi)</label>
-          <input type="text" class="input" name="vlan_vendor" placeholder="VLAN Vendor" value="<?php echo $vlan_vendor ?>">
-        </p>
-      </div>
-
-      <div class="field has-addons">
-        <div class="control">
-          <label class="label">VLAN Kapasitas (Wajib diisi</label>
-          <input type="text" class="input" name="vlan_kapasitas" placeholder="VLAN Kapasitas" value="<?php echo $vlan_kapasitas; ?>">
+    <div class="field">
+      <label class="label">POP</label>
+        <div class="select is-fullwidth">
+          <select name="kode_pop" autofocus="yes">
+            <option value="" selected disabled>Pilih POP</option>
+            <?php foreach ($pops as $pop): ?>
+            <option value="<?php echo $pop->kode_pop; ?>" <?= $kode_pop == $pop->kode_pop ? 'selected' : ''; ?>><?php echo $pop->nama_pop; ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
+    </div>
 
-        <div class="control">
-          <label class="label">)</label>
-          <div class="select is-fullwidth">
-            <select name="vlan_satuan">
-              <option value="" selected disabled>Pilih Satuan</option>
-              <option value="Kbps" <?= $vlan_satuan == 'Kbps' ? 'selected' : ''; ?>>Kbps</option>
-              <option value="Mbps" <?= $vlan_satuan == 'Mbps' ? 'selected' : '' ?>>Mbps</option>
-              <option value="Gbps" <?= $vlan_satuan == 'Gbps' ? 'selected' : '' ?>>Gbps</option>
-            </select>
-          </div>
+    <div class="field is-grouped">
+      <p class="control is-expanded">
+        <label class="label">VLAN ID (Wajib diisi)</label>
+        <input type="text" class="input" name="vlan_id" placeholder="VLAN ID" value="<?php echo $vlan_id ?>">
+      </p>
+
+      <p class="control is-expanded">
+        <label class="label">VLAN Vendor (Wajib diisi)</label>
+        <input type="text" class="input" name="vlan_vendor" placeholder="VLAN Vendor" value="<?php echo $vlan_vendor ?>">
+      </p>
+    </div>
+
+    <div class="field has-addons">
+      <div class="control">
+        <label class="label">VLAN Kapasitas (Wajib diisi</label>
+        <input type="text" class="input" name="vlan_kapasitas" placeholder="VLAN Kapasitas" value="<?php echo $vlan_kapasitas; ?>">
+      </div>
+
+      <div class="control">
+        <label class="label">)</label>
+        <div class="select is-fullwidth">
+          <select name="vlan_satuan">
+            <option value="" selected disabled>Pilih Satuan</option>
+            <option value="Kbps" <?= $vlan_satuan == 'Kbps' ? 'selected' : ''; ?>>Kbps</option>
+            <option value="Mbps" <?= $vlan_satuan == 'Mbps' ? 'selected' : '' ?>>Mbps</option>
+            <option value="Gbps" <?= $vlan_satuan == 'Gbps' ? 'selected' : '' ?>>Gbps</option>
+          </select>
         </div>
       </div>
-    </section>
-    <footer class="card-footer">
-      <a class="card-footer-item" id="simpan">Simpan</a>
-      <a class="card-footer-item" id="kembali">Kembali</a>
-    </footer>
+    </div>
+    
+    <div class="field">
+      <p class="control is-expanded">
+        <button type="submit" class="button is-link is-fullwidth">Simpan</button>
+      </p>
+    </div>
   </form>
   <script type="text/javascript">
     $(document).ready(function(){

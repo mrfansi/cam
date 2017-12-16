@@ -22,9 +22,9 @@ class Dashboard extends MY_Controller {
 		$data->backbone 		= $this->dashboard->count_backbone();
 		$data->backbone_detail 	= $this->dashboard->count_backbone_detail();
 		$data->vlan 			= $this->dashboard->count_vlan();
-
-		$data->downs 			= $this->dashboard->backbone_down();
-
+		$data->switch 			= $this->dashboard->count_switch();
+		$data->bb_downs 		= $this->dashboard->backbone_down();
+		$data->sw_downs 		= $this->dashboard->switch_down();
 
 		// show view with data
 		$this->set_title('Home');

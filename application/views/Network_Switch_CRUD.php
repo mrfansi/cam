@@ -51,69 +51,66 @@
   </div>
   <?php endif; ?>
 
-  <form class="card" method="POST" autocomplete="off" action="<?php echo $action; ?>" id="post-data">
+  <form method="POST" autocomplete="off" action="<?php echo $action; ?>" id="post-data">
     <input type="hidden" name="kode_switch" value="<?php echo $kode_switch; ?>">
-    <header class="card-header">
-      <p class="card-header-title">Data Switch (<b><?php echo $kode_switch; ?></b>)</p>
-    </header>
-    <section class="card-content">
-      <div class="field">
-        <label class="label">POP</label>
-          <div class="select is-fullwidth">
-            <select name="kode_pop" autofocus="yes">
-              <option value="" selected disabled>Pilih POP</option>
-              <?php foreach ($pops as $pop): ?>
-              <option value="<?php echo $pop->kode_pop; ?>" <?= $kode_pop == $pop->kode_pop ? 'selected' : ''; ?>><?php echo $pop->nama_pop; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-      </div>
+    <div class="field">
+      <label class="label">POP</label>
+        <div class="select is-fullwidth">
+          <select name="kode_pop" autofocus="yes">
+            <option value="" selected disabled>Pilih POP</option>
+            <?php foreach ($pops as $pop): ?>
+            <option value="<?php echo $pop->kode_pop; ?>" <?= $kode_pop == $pop->kode_pop ? 'selected' : ''; ?>><?php echo $pop->nama_pop; ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+    </div>
 
-      <div class="field is-grouped">
-        <p class="control is-expanded">
-          <label class="label">Hostname (Wajib diisi)</label>
-          <input type="text" class="input" name="hostname_switch" placeholder="Hostname" value="<?php echo $hostname_switch ?>">
-        </p>
+    <div class="field is-grouped">
+      <p class="control is-expanded">
+        <label class="label">Hostname (Wajib diisi)</label>
+        <input type="text" class="input" name="hostname_switch" placeholder="Hostname" value="<?php echo $hostname_switch ?>">
+      </p>
 
-        <p class="control is-expanded">
-          <label class="label">IP Address (Wajib diisi)</label>
-          <input type="text" class="input" name="ip_addr_switch" placeholder="IP Address" value="<?php echo $ip_addr_switch ?>">
-        </p>
-      </div>
+      <p class="control is-expanded">
+        <label class="label">IP Address (Wajib diisi)</label>
+        <input type="text" class="input" name="ip_addr_switch" placeholder="IP Address" value="<?php echo $ip_addr_switch ?>">
+      </p>
+    </div>
 
-      <div class="field">
-        <div class="control">
-          <label class="label">Tipe (Wajib diisi</label>
-          <div class="select is-fullwidth">
-            <select name="tipe_switch">
-              <option value="" selected disabled>Pilih Tipe</option>
-              <option value="Cisco" <?= $tipe_switch == 'Cisco' ? 'selected' : '' ?>>Cisco</option>
-              <option value="Mikrotik" <?= $tipe_switch == 'Mikrotik' ? 'selected' : '' ?>>Mikrotik</option>
-              <option value="HP" <?= $tipe_switch == 'HP' ? 'selected' : '' ?>>HP</option>
-              <option value="TP-Link" <?= $tipe_switch == 'TP-Link' ? 'selected' : '' ?>>TP-Link</option>
-              <option value="Juniper" <?= $tipe_switch == 'Juniper' ? 'selected' : '' ?>>Juniper</option>
-            </select>
-          </div>
+    <div class="field">
+      <div class="control">
+        <label class="label">Tipe (Wajib diisi</label>
+        <div class="select is-fullwidth">
+          <select name="tipe_switch">
+            <option value="" selected disabled>Pilih Tipe</option>
+            <option value="Cisco" <?= $tipe_switch == 'Cisco' ? 'selected' : '' ?>>Cisco</option>
+            <option value="Mikrotik" <?= $tipe_switch == 'Mikrotik' ? 'selected' : '' ?>>Mikrotik</option>
+            <option value="HP" <?= $tipe_switch == 'HP' ? 'selected' : '' ?>>HP</option>
+            <option value="TP-Link" <?= $tipe_switch == 'TP-Link' ? 'selected' : '' ?>>TP-Link</option>
+            <option value="Juniper" <?= $tipe_switch == 'Juniper' ? 'selected' : '' ?>>Juniper</option>
+          </select>
         </div>
       </div>
+    </div>
 
-      <div class="field">
-        <div class="control">
-          <label class="label">Jenis Kegunaan (Wajib diisi</label>
-          <div class="select is-fullwidth">
-            <select name="jenis_switch">
-              <option value="" selected disabled>Pilih Tipe</option>
-              <option value="Backbone" <?= $jenis_switch == 'Backbone' ? 'selected' : '' ?>>Backbone</option>
-              <option value="Distribusi" <?= $jenis_switch == 'Distribusi' ? 'selected' : '' ?>>Distribusi</option>
-            </select>
-          </div>
+    <div class="field">
+      <div class="control">
+        <label class="label">Jenis Kegunaan (Wajib diisi</label>
+        <div class="select is-fullwidth">
+          <select name="jenis_switch">
+            <option value="" selected disabled>Pilih Tipe</option>
+            <option value="Backbone" <?= $jenis_switch == 'Backbone' ? 'selected' : '' ?>>Backbone</option>
+            <option value="Distribusi" <?= $jenis_switch == 'Distribusi' ? 'selected' : '' ?>>Distribusi</option>
+          </select>
         </div>
       </div>
-    </section>
-    <footer class="card-footer">
-      <a class="card-footer-item" id="simpan">Simpan</a>
-      <a class="card-footer-item" id="kembali">Kembali</a>
-    </footer>
+    </div>
+
+    <div class="field">
+      <p class="control is-expanded">
+        <button type="submit" class="button is-link is-fullwidth">Simpan</button>
+      </p>
+    </div>
   </form>
   <script type="text/javascript">
     $(document).ready(function(){

@@ -12,9 +12,7 @@
       $txfreq_link     = set_value('txfreq_link');
       $rxfreq_link     = set_value('rxfreq_link');
       $signal_link     = set_value('signal_link');
-      $ssid_link       = set_value('ssid_link');
       $mse_link        = set_value('mse_link');
-      $mrmc_link       = set_value('mrmc_link');
       $linkid_link     = set_value('linkid_link');
       $range_link      = set_value('range_link');
       $txrange_link    = set_value('txrange_link');
@@ -29,9 +27,7 @@
       $txfreq_link     = '';
       $rxfreq_link     = '';
       $signal_link     = '';
-      $ssid_link       = '';
       $mse_link        = '';
-      $mrmc_link       = '';
       $linkid_link     = '';
       $range_link      = '';
       $txrange_link    = '';
@@ -40,21 +36,19 @@
     <?php endif; ?>
   <?php else: ?>
     <?php
-      if ($action == base_url('manage/backbone/ubah/' . $record->kode_link)) {
-        $nama_link         = $record->nama_link;
-        $kapasitas_link    = $record->kapasitas_link;
-        $ip_addr_link      = $record->ip_addr_link;
-        $product_link      = $record->product_link;
-        $txfreq_link     = $record->txfreq_link;
-        $rxfreq_link     = $record->rxfreq_link;
-        $signal_link     = $record->signal_link;
-        $ssid_link       = $record->detail->ssid_link;
-        $mse_link        = $record->detail->mse_link;
-        $mrmc_link       = $record->detail->mrmc_link;
-        $linkid_link     = $record->detail->linkid_link;
-        $range_link      = $record->detail->range_link;
-        $txrange_link    = $record->detail->txrange_link;
-        $rxrange_link    = $record->detail->rxrange_link;
+      if ($action == base_url('manage/backbone/ubah/' . $record->backbone->kode_link)) {
+        $nama_link         = $record->backbone->nama_link;
+        $kapasitas_link    = $record->backbone->kapasitas_link;
+        $ip_addr_link      = $record->backbone->ip_addr_link;
+        $product_link      = $record->backbone->product_link;
+        $txfreq_link     = $record->backbone->txfreq_link;
+        $rxfreq_link     = $record->backbone->rxfreq_link;
+        $signal_link     = $record->backbone->signal_link;
+        $mse_link        = $record->mse_link;
+        $linkid_link     = $record->linkid_link;
+        $range_link      = $record->range_link;
+        $txrange_link    = $record->txrange_link;
+        $rxrange_link    = $record->rxrange_link;
       } elseif ($action == base_url('manage/backbone/tambah')) {
         $nama_link         = '';
         $kapasitas_link    = '';
@@ -63,9 +57,7 @@
         $txfreq_link     = '';
         $rxfreq_link     = '';
         $signal_link     = '';
-        $ssid_link       = '';
         $mse_link        = '';
-        $mrmc_link       = '';
         $linkid_link     = '';
         $range_link      = '';
         $txrange_link    = '';
@@ -87,12 +79,8 @@
   </div>
   <?php endif; ?>
 
-  <form class="card" method="POST" autocomplete="off" action="<?php echo $action; ?>" id="post-data">
+  <form method="POST" autocomplete="off" action="<?php echo $action; ?>" id="post-data">
     <input type="hidden" name="kode_link" value="<?php echo $kode_link; ?>">
-    <header class="card-header">
-      <p class="card-header-title">Data Link (<b><?php echo $kode_link; ?></b>)</p>
-    </header>
-    <section class="card-content">
       <div class="field is-grouped">
         <div class="control is-expanded">
           <label class="label">Nama Link (Wajib diisi)</label>
@@ -152,31 +140,12 @@
           <label class="label">Signal (Wajib diisi)</label>
           <input class="input" type="text" name="signal_link" placeholder="Signal" value="<?php echo $signal_link ;?>">
         </div>
-
-        <div class="control is-expanded">
-          <label class="label">SSID</label>
-          <input class="input" type="text" name="ssid_link" placeholder="SSID" value="<?php echo $ssid_link ;?>">
-        </div>
       </div>
 
       <div class="field is-grouped">
         <div class="control is-expanded">
           <label class="label">MSE Link</label>
           <input class="input" type="text" name="mse_link" placeholder="MSE Link" value="<?php echo $mse_link ;?>">
-        </div>
-        <div class="control is-expanded">
-          <div class="field has-addons">
-            <div class="control">
-              <label class="label">MRMC</label>
-              <input class="input" type="text" name="mrmc_link" placeholder="MRMC" value="<?php echo $mrmc_link ?>">
-            </div>
-            <div class="control">
-              <label class="label">#</label>
-              <a class="button is-static">
-                Mbps
-              </a>
-            </div>
-          </div>
         </div>
         
         <div class="control is-expanded">
@@ -210,48 +179,49 @@
           <input class="input" type="text" name="rxrange_link" placeholder="RX Range Freq" value="<?php echo $rxrange_link ?>">
         </div>
       </div>
-    </section>
-    <footer class="card-footer">
-      <a class="card-footer-item" id="simpan">Simpan</a>
-      <a class="card-footer-item" id="kembali">Kembali</a>
-    </footer>
+
+      <div class="field">
+        <p class="control is-expanded">
+          <button type="submit" class="button is-link is-fullwidth">Simpan</button>
+        </p>
+      </div>
   </form>
-  <script type="text/javascript">
-    $(document).ready(function(){
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
 
-      $('#simpan').click(function(){
+    $('#simpan').click(function(){
+      $('#post-data').submit();
+    });
+
+    $('#kembali').click(function(){
+      window.location = '<?php echo base_url('manage/backbone'); ?>';
+    });
+
+    // hide notif ketika waktu habis
+    if ($('#notif').length) {
+      setTimeout(function(){
+        $('#notif').fadeOut();
+      }, 5000);
+    };
+
+
+    $('.input').keypress(function (e) {
+      if (e.which == 13) {
         $('#post-data').submit();
-      });
-
-      $('#kembali').click(function(){
-        window.location = '<?php echo base_url('manage/backbone'); ?>';
-      });
-
-      // hide notif ketika waktu habis
-      if ($('#notif').length) {
-        setTimeout(function(){
-          $('#notif').fadeOut();
-        }, 5000);
-      };
-
-
-      $('.input').keypress(function (e) {
-        if (e.which == 13) {
-          $('#post-data').submit();
-          return false;
-        }
-      });
-
-      $('select').keypress(function (e) {
-        if (e.which == 13) {
-          $('#post-data').submit();
-          return false;
-        }
-      });
-
-      if ($('#simpankembali').data("clicked")) {
-        $('#kembali').click();
+        return false;
       }
     });
-  </script>
-</div>
+
+    $('select').keypress(function (e) {
+      if (e.which == 13) {
+        $('#post-data').submit();
+        return false;
+      }
+    });
+
+    if ($('#simpankembali').data("clicked")) {
+      $('#kembali').click();
+    }
+  });
+</script>

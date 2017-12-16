@@ -43,8 +43,18 @@
               <a class="button is-block is-info is-large" onclick="$('#login').submit()">Login</a>
             </form>
           </div>
+          <article class="message is-info">
+            <div class="message-header">
+              <p>Muhammad Irfan</p>
+            </div>
+            <div class="message-body">
+              "Ketika ingin menciptakan sesuatu itu, harus memikirkan seribu langkah kedepan."
+
+            </div>
+          </article>
         </div>
 
+        
         <?php if(isset($gagal)): ?>
         <div class="column has-text-danger">
           <?php echo $gagal; ?>
