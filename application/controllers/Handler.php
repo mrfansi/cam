@@ -31,7 +31,7 @@ class Handler extends CI_Controller {
 			$output = exec($command);
 			
 			// update status
-			$this->bb->where('status_link', $output)->update($bb->kode_link);
+			$this->bb->where('kode_link', $sw->kode_link)->update(array('status_link' => $output));
     	}
 
     	foreach ($data->sws as $sw) {
@@ -40,7 +40,7 @@ class Handler extends CI_Controller {
 			$output = exec($command);
 			
 			// update status
-			$this->sw->where('status_switch', $output)->update($sw->kode_switch);
+			$this->sw->where('kode_switch', $sw->kode_switch)->update(array('status_switch' => $output));
     	}
 
     	foreach ($data->rts as $rt) {
@@ -49,7 +49,7 @@ class Handler extends CI_Controller {
 			$output = exec($command);
 			
 			// update status
-			$this->rt->where('status_router', $output)->update($sw->kode_switch);
+			$this->rt->where('kode_router', $sw->kode_router)->update(array('status_router' => $output));
     	}
 	}
 }
