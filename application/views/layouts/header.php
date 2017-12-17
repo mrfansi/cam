@@ -27,8 +27,8 @@
 			</div>
 			<div id="navMenu" class="navbar-menu">
 			    <div class="navbar-start">
-			    	<a class="navbar-item" href="<?php echo base_url('home'); ?>">
-			        	Home
+			    	<a class="navbar-item" href="<?php echo base_url('dashboard'); ?>">
+			        	Dashboard
 			      	</a>
 			      	<a class="navbar-item" href="<?php echo base_url('manage/pop'); ?>">
 			        	POP

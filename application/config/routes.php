@@ -54,7 +54,7 @@ $route['default_controller']				= 'dashboard';
 // URL Security
 
 // Dashboard
-$route['home']								= 'dashboard';
+$route['dashboard']							= 'dashboard';
 $route['manage']							= 'dashboard/manage';
 
 // Network POP
