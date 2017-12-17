@@ -8,15 +8,18 @@ class Model_Switch extends MY_Model
 {
 	public $table = 'switch';
 	public $primary_key = 'kode_switch';
-	public $fillable = array(
-		'kode_switch',
-		'hostname_switch',
-		'ip_addr_switch',
-		'tipe_switch',
-		'kode_pop'
-	);
+
 	public function __construct()
 	{
+		$this->fillable = array(
+			'kode_switch',
+			'hostname_switch',
+			'ip_addr_switch',
+			'tipe_switch',
+			'kode_pop',
+			'status_switch'
+		);
+
 		$this->has_one['pop'] = array(
 
 			'foreign_model' => 'Model_Pop',

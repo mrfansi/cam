@@ -8,19 +8,21 @@ class Model_Backbone extends MY_Model
 {
 	public $table = 'backbone';
 	public $primary_key = 'kode_link';
-	public $fillable = array(
-		'kode_link',
-		'nama_link',
-		'ip_addr_link',
-		'kapasitas_link',
-		'product_link',
-		'txfreq_link',
-		'rxfreq_link',
-		'signal_link'
-	);
 
 	public function __construct()
 	{
+		$this->fillable = array(
+			'kode_link',
+			'nama_link',
+			'ip_addr_link',
+			'kapasitas_link',
+			'product_link',
+			'txfreq_link',
+			'rxfreq_link',
+			'signal_link',
+			'status_link'
+		);
+
 		$this->has_one['backbone_detail'] = array(
 	
 			'foreign_model' => 'Model_Backbone_detail',

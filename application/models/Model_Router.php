@@ -9,15 +9,18 @@ class Model_Router extends MY_Model
 	
 	public $table = 'router';
 	public $primary_key = 'kode_router';
-	public $fillable = array(
-		'kode_router',
-		'hostname_router',
-		'ip_addr_router',
-		'tipe_router',
-		'kode_pop'
-	);
+
 	public function __construct()
 	{
+		$this->fillable = array(
+			'kode_router',
+			'hostname_router',
+			'ip_addr_router',
+			'tipe_router',
+			'kode_pop',
+			'status_router'
+		);
+
 		$this->has_one['pop'] = array(
 
 			'foreign_model' => 'Model_Pop',

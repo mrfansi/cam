@@ -8,16 +8,18 @@ class Model_Vlan extends MY_Model
 {
 	public $table = 'vlan';
 	public $primary_key = 'kode_vlan';
-	public $fillable = array(
-		'kode_vlan',
-		'vlan_id',
-		'vlan_vendor',
-		'vlan_kapasitas',
-		'vlan_satuan',
-		'kode_pop'
-	);
+	
 	public function __construct()
 	{
+		$this->fillable = array(
+			'kode_vlan',
+			'vlan_id',
+			'vlan_vendor',
+			'vlan_kapasitas',
+			'vlan_satuan',
+			'kode_pop'
+		);
+		
 		$this->has_one['pop'] = array(
 
 			'foreign_model' => 'Model_Pop',

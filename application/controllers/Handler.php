@@ -26,30 +26,48 @@ class Handler extends CI_Controller {
 
     	// loop
     	foreach ($data->bbs as $bb) {
+    		// get id
+    		$id = $bb->kode_link;
+
     		// exec command to check status backbone
     		$command = './handler/ping.py '. $bb->ip_addr_link;
 			$output = exec($command);
-			
+
+			// set status
+			$update = array('status_link' => $output);
+
 			// update status
-			$this->bb->where('kode_link', $sw->kode_link)->update(array('status_link' => $output));
+			$this->bb->where('kode_link', $id)->update($update);
     	}
 
     	foreach ($data->sws as $sw) {
+    		// get id
+    		$id = $sw->kode_switch;
+
     		// exec command to check status backbone
     		$command = './handler/ping.py '. $sw->ip_addr_switch;
 			$output = exec($command);
 			
+			// set status
+			$update = array('status_switch' => $output);
+
 			// update status
-			$this->sw->where('kode_switch', $sw->kode_switch)->update(array('status_switch' => $output));
+			$this->sw->where('kode_switch', $id)->update($update);
     	}
 
     	foreach ($data->rts as $rt) {
+    		// get id
+    		$id = $rt->kode_link;
+
     		// exec command to check status backbone
     		$command = './handler/ping.py '. $rt->ip_addr_router;
 			$output = exec($command);
 			
+			// set status
+			$update = array('status_router' => $output);
+
 			// update status
-			$this->rt->where('kode_router', $sw->kode_router)->update(array('status_router' => $output));
+			$this->rt->where('kode_router', $id)->update($update);
     	}
 	}
 }
