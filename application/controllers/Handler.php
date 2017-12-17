@@ -14,6 +14,7 @@ class Handler extends CI_Controller {
 		//load model
 		$this->load->model('Model_Backbone', 'bb');
 		$this->load->model('Model_Switch', 'sw');
+		$this->load->model('Model_Router', 'rt');
 
 		// create object
     	$data = new stdClass();
@@ -21,6 +22,7 @@ class Handler extends CI_Controller {
     	// get IP Address from table backbone
     	$data->bbs = $this->bb->get_all();
     	$data->sws = $this->sw->get_all();
+    	$data->rts = $this->rt->get_all();
 
     	// loop
     	foreach ($data->bbs as $bb) {
@@ -29,7 +31,7 @@ class Handler extends CI_Controller {
 			$output = exec($command);
 			
 			// update status
-			$this->bb->update($bb->kode_link, array('status_link' => $output));
+			$this->bb->where('status_link', $output)->update($bb->kode_link);
     	}
 
     	foreach ($data->sws as $sw) {
@@ -38,7 +40,16 @@ class Handler extends CI_Controller {
 			$output = exec($command);
 			
 			// update status
-			$this->sw->update($sw->kode_switch, array('status_switch' => $output));
+			$this->sw->where('status_switch', $output)->update($sw->kode_switch);
+    	}
+
+    	foreach ($data->rts as $rt) {
+    		// exec command to check status backbone
+    		$command = './handler/ping.py '. $rt->ip_addr_router;
+			$output = exec($command);
+			
+			// update status
+			$this->rt->where('status_router', $output)->update($sw->kode_switch);
     	}
 	}
 }

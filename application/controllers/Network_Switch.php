@@ -64,8 +64,8 @@ class Network_Switch extends MY_Controller {
         // form_validation
         $this->form_validation->set_rules('hostname_switch','Hostname', 'trim|required');
         $this->form_validation->set_rules('ip_addr_switch','IP Address', 'trim|required');
-        $this->form_validation->set_rules('tipe_switch','VLAN Kapasitas', 'trim|required');
-        $this->form_validation->set_rules('kode_pop','VLAN Satuan', 'trim|required');
+        $this->form_validation->set_rules('tipe_switch','Tipe', 'trim|required');
+        $this->form_validation->set_rules('kode_pop','POP', 'trim|required');
         
         // run form_validation
         if ($this->form_validation->run() == FALSE) {
@@ -115,8 +115,8 @@ class Network_Switch extends MY_Controller {
          // form_validation
         $this->form_validation->set_rules('hostname_switch','Hostname', 'trim|required');
         $this->form_validation->set_rules('ip_addr_switch','IP Address', 'trim|required');
-        $this->form_validation->set_rules('tipe_switch','VLAN Kapasitas', 'trim|required');
-        $this->form_validation->set_rules('kode_pop','VLAN Satuan', 'trim|required');
+        $this->form_validation->set_rules('tipe_switch','Tipe', 'trim|required');
+        $this->form_validation->set_rules('kode_pop','POP', 'trim|required');
         
         // run form_validation
         if ($this->form_validation->run() == FALSE) {
