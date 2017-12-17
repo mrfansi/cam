@@ -9,7 +9,6 @@ class Model_Vlan extends MY_Model
 	public $table = 'vlan';
 	public $primary_key = 'kode_vlan';
 	public $fillable = array();
-	public $protected = array();
 	public function __construct()
 	{
 		parent::__construct();

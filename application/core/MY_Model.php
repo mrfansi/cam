@@ -401,9 +401,9 @@ class MY_Model extends CI_Model
                 $this->_prep_after_write();
                 $id = $this->_database->insert_id();
                 $return = $this->trigger('after_create',$id);
-                return $return;
+                return TRUE;
             }
-            return FALSE;
+            return TRUE;
         }
         // else...
         else
@@ -427,9 +427,9 @@ class MY_Model extends CI_Model
             {
                 $after_create[] = $this->trigger('after_create', $id);
             }
-            return $after_create;
+            return TRUE;
         }
-        return FALSE;
+        return TRUE;
     }
 
     /*
@@ -512,7 +512,7 @@ class MY_Model extends CI_Model
                     $this->_prep_after_write();
                     $affected = $this->_database->affected_rows();
                     $return = $this->trigger('after_update',$affected);
-                    return $return;
+                    return TRUE;
                 }
             }
             else
@@ -522,10 +522,10 @@ class MY_Model extends CI_Model
                     $this->_prep_after_write();
                     $affected = $this->_database->affected_rows();
                     $return = $this->trigger('after_update',$affected);
-                    return $return;
+                    return TRUE;
                 }
             }
-            return FALSE;
+            return TRUE;
         }
         // else...
         else
@@ -565,9 +565,9 @@ class MY_Model extends CI_Model
             $affected = $rows;
             $this->_prep_after_write();
             $return = $this->trigger('after_update',$affected);
-            return $return;
+            return TRUE;
         }
-        return FALSE;
+        return TRUE;
     }
 
     /**

@@ -40,7 +40,7 @@ class Network_Switch extends MY_Controller {
         }
 
         // select data from id
-        $data->record = $this->sw->get($id);
+        $data->record = $this->sw->where('kode_switch', $id)->get();
 
         // show view with data
         $this->set_title('Detail Switch (' . $id . ')');
@@ -82,7 +82,7 @@ class Network_Switch extends MY_Controller {
 
             // insert into table vlan
 
-            if ($this->sw->insert($post_data, true)) {
+            if ($this->sw->insert($post_data)) {
                 $this->session->set_flashdata('berhasil', 'Berhasil menambah data.');
             } else {
                 $this->session->set_flashdata('gagal', 'Gagal menambah data.');
@@ -132,7 +132,7 @@ class Network_Switch extends MY_Controller {
 
             // insert into table vlan
 
-            if ($this->sw->update($id, $post_data)) {
+            if ($this->sw->where('kode_switch', $id)->update($post_data)) {
                 $this->session->set_flashdata('berhasil', 'Berhasil mengubah data.');
             } else {
                 $this->session->set_flashdata('gagal', 'Gagal mengubah data.');
@@ -147,7 +147,7 @@ class Network_Switch extends MY_Controller {
         $data = new stdClass();
 
         // delete data in table
-        if ($this->sw->delete($id)) {
+        if ($this->sw->where('kode_switch', $id)->delete()) {
             $this->session->set_flashdata('berhasil', 'Berhasil menghapus data.');
         } else {
             $this->session->set_flashdata('gagal', 'Gagal menghapus data.');

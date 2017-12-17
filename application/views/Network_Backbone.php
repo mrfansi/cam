@@ -94,7 +94,7 @@
       <input id="filter" class="input" type="text" name="filter" placeholder="Cari data Backbone disini..." autofocus="yes">
     </p>
   </div>
-  
+
   <div id="data" class="is-small">
     <table class="table is-narrow is-fullwidth is-hoverable" id="data-table">
       <thead>

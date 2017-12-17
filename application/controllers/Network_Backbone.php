@@ -8,7 +8,10 @@ class Network_Backbone extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
+
+		// load model
 		$this->load->model('Model_Backbone','bb');
+		$this->load->model('Model_Backbone_detail','bb_detail');
 
 		// load custom library
 		$this->load->library(array('PHPExcel','PHPExcel/IOFactory'));
@@ -27,8 +30,7 @@ class Network_Backbone extends MY_Controller {
 	}
 
 	public function detail($id) {
-		// load model
-		$this->load->model('Model_Backbone_detail','bb_detail');
+		
 	
 		// create object
 		$data 			= new stdClass();
@@ -41,7 +43,7 @@ class Network_Backbone extends MY_Controller {
 		}
 
 		// select data from id
-		$data->record = $this->bb_detail->with_backbone()->get($id);
+		$data->record = $this->bb->with_backbone_detail()->where('kode_link', $id)->get();
 		
 		// show view with data
 		$this->set_title('Detail (' . $id . ')');
@@ -49,8 +51,6 @@ class Network_Backbone extends MY_Controller {
 	}
 
 	public function tambah() {
-		// load model
-		$this->load->model('Model_Backbone_detail','bb_detail');
 
 		// set title
 		$this->set_title('Tambah Link');
@@ -89,11 +89,9 @@ class Network_Backbone extends MY_Controller {
 				'product_link'			=> $this->input->post('product_link'),
 				'txfreq_link'			=> $this->input->post('txfreq_link'),
 				'rxfreq_link'			=> $this->input->post('rxfreq_link'),
-				'signal_link'			=> $this->input->post('signal_link'),
-
+				'signal_link'			=> $this->input->post('signal_link')
 			);
 
-			// set variable post detail in array
 			$post_data_detail = array(
 				'kode_link'				=> $this->input->post('kode_link'),
 				'mse_link'				=> $this->input->post('mse_link'),
@@ -104,7 +102,7 @@ class Network_Backbone extends MY_Controller {
 			);
 
 			// insert into table pop
-			if ($this->bb->insert($post_data, true) && $this->bb_detail->insert($post_data_detail, true)) {
+			if ($this->bb->insert($post_data) && $this->bb_detail->insert($post_data_detail)) {
 				$this->session->set_flashdata('berhasil', 'Berhasil menambah data.');
 			} else {
 				$this->session->set_flashdata('gagal', 'Gagal menambah data.');
@@ -115,8 +113,6 @@ class Network_Backbone extends MY_Controller {
 	}
 
 	public function ubah($id) {
-		// load model
-		$this->load->model('Model_Backbone_detail','bb_detail');
 
 		// set title
 		$this->set_title('Ubah Data (' . $id . ')');
@@ -169,7 +165,7 @@ class Network_Backbone extends MY_Controller {
 			);
 
 			// insert into table backbone dan backbone_detail
-			if ($this->bb->update($post_data, $id) && $this->bb_detail->update($post_data_detail, $id)) {
+			if ($this->bb->where('kode_link',$id)->update($post_data) && $this->bb_detail->where('kode_link', $id)->update($post_data_detail)) {
 				$this->session->set_flashdata('berhasil', 'Berhasil mengubah data.');
 			} else {
 				$this->session->set_flashdata('gagal', 'Gagal mengubah data.');
@@ -180,9 +176,7 @@ class Network_Backbone extends MY_Controller {
 	}
 
 	public function hapus($id) {
-		// load model
-		$this->load->model('Model_Backbone_detail','bb_detail');
-		
+
 		// create object
 		$data = new stdClass();
 
@@ -191,7 +185,7 @@ class Network_Backbone extends MY_Controller {
 		}
 
 		// delete data in table
-		if ($this->bb_detail->delete($id) && $this->bb->delete($id)) {
+		if ($this->bb_detail->where('kode_link', $id)->delete() && $this->bb->where('kode_link', $id)->delete()) {
 			$this->session->set_flashdata('berhasil', 'Berhasil menghapus data.');
 		} else {
 			$this->session->set_flashdata('gagal', 'Gagal menghapus data.');

@@ -8,11 +8,16 @@ class Model_Backbone_detail extends MY_Model
 {
 	public $table = 'backbone_detail';
 	public $primary_key = 'kode_link';
-	public $fillable = array();
-	public $protected = array();
+	public $fillable = array(
+		'kode_link',
+		'mse_link',
+		'linkid_link',
+		'range_link',
+		'txrange_link',
+		'rxrange_link'
+	);
 	public function __construct()
 	{
-		$this->has_one['backbone'] = 'Model_Backbone';
 		parent::__construct();
 	}
 }

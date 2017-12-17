@@ -40,7 +40,7 @@ class Network_POP extends MY_Controller {
 		}
 
 		// select data from id
-		$data->record = $this->pop->get($id);
+		$data->record = $this->pop->where('kode_pop', $id)->get();
 
 		// show view with data
 		$this->set_title('Detail (' . $id . ')');
@@ -133,7 +133,7 @@ class Network_POP extends MY_Controller {
 
 			// update into table pop
 
-			if ($this->pop->update($post_data, $id)) {
+			if ($this->pop->where('kode_pop', $id)->update($post_data)) {
 				$this->session->set_flashdata('berhasil', 'Berhasil mengubah data.');
 			} else {
 				$this->session->set_flashdata('gagal', 'Gagal mengubah data.');
@@ -148,7 +148,7 @@ class Network_POP extends MY_Controller {
 		$data = new stdClass();
 
 		// delete data in table
-		if ($this->pop->delete($id)) {
+		if ($this->pop->where('kode_pop', $id)->delete()) {
 			$this->session->set_flashdata('berhasil', 'Berhasil menghapus data.');
 		} else {
 			$this->session->set_flashdata('gagal', 'Gagal menghapus data.');

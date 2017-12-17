@@ -36,19 +36,19 @@
     <?php endif; ?>
   <?php else: ?>
     <?php
-      if ($action == base_url('manage/backbone/ubah/' . $record->backbone->kode_link)) {
-        $nama_link         = $record->backbone->nama_link;
-        $kapasitas_link    = $record->backbone->kapasitas_link;
-        $ip_addr_link      = $record->backbone->ip_addr_link;
-        $product_link      = $record->backbone->product_link;
-        $txfreq_link     = $record->backbone->txfreq_link;
-        $rxfreq_link     = $record->backbone->rxfreq_link;
-        $signal_link     = $record->backbone->signal_link;
-        $mse_link        = $record->mse_link;
-        $linkid_link     = $record->linkid_link;
-        $range_link      = $record->range_link;
-        $txrange_link    = $record->txrange_link;
-        $rxrange_link    = $record->rxrange_link;
+      if ($action == base_url('manage/backbone/ubah/' . $record->kode_link)) {
+        $nama_link         = $record->nama_link;
+        $kapasitas_link    = $record->kapasitas_link;
+        $ip_addr_link      = $record->ip_addr_link;
+        $product_link      = $record->product_link;
+        $txfreq_link     = $record->txfreq_link;
+        $rxfreq_link     = $record->rxfreq_link;
+        $signal_link     = $record->signal_link;
+        $mse_link        = $record->backbone_detail->mse_link;
+        $linkid_link     = $record->backbone_detail->linkid_link;
+        $range_link      = $record->backbone_detail->range_link;
+        $txrange_link    = $record->backbone_detail->txrange_link;
+        $rxrange_link    = $record->backbone_detail->rxrange_link;
       } elseif ($action == base_url('manage/backbone/tambah')) {
         $nama_link         = '';
         $kapasitas_link    = '';
