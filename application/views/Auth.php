@@ -43,7 +43,7 @@
               <a class="button is-block is-info is-large" onclick="$('#login').submit()">Login</a>
             </form>
           </div>
-          <article class="message is-info">
+          <!-- <article class="message is-info">
             <div class="message-header">
               <p>Muhammad Irfan</p>
             </div>
@@ -51,7 +51,7 @@
               "Ketika ingin menciptakan sesuatu itu, harus memikirkan seribu langkah kedepan."
 
             </div>
-          </article>
+          </article> -->
         </div>
 
         
