@@ -23,11 +23,13 @@ class Dashboard extends MY_Controller {
 		$data->backbone_detail 	= $this->dashboard->count_backbone_detail();
 		$data->vlan 			= $this->dashboard->count_vlan();
 		$data->switch 			= $this->dashboard->count_switch();
+		$data->router 			= $this->dashboard->count_router();
 		$data->bb_downs 		= $this->dashboard->backbone_down();
 		$data->sw_downs 		= $this->dashboard->switch_down();
+		$data->rt_downs 		= $this->dashboard->router_down();
 
 		// show view with data
-		$this->set_title('Home');
+		$this->set_title('Dashboard');
 		$this->tampilkan('Dashboard', $data);
 	}
 

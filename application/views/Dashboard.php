@@ -27,7 +27,7 @@
 		    </div>
 		    <div class="tile is-parent">
 		      <article class="tile is-child notification is-link">
-		        <p class="title">0</p>
+		        <p class="title"><?php echo $router; ?></p>
 		        <p class="subtitle">Total Router</p>
 		      </article>
 		    </div>
@@ -99,6 +99,39 @@
 				<?php else: ?>
 				<tr>
 				    <td colspan="5" class="has-text-centered">Tidak ada Switch Down</td>
+				</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+
+		<table class="table is-narrow is-fullwidth is-hoverable" id="data-table">
+			<thead>
+				<tr>
+					<th colspan="5" class="has-text-centered">Router Down</th>
+				</tr>
+				<tr>
+				  <th>Hostname</th>
+				  <th>IP Address</th>
+				  <th>Tipe</th>
+				  <th>Jenis</th>
+				  <th>Ping Status</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<?php if(isset($rt_downs) && $rt_downs != NULL ): ?>
+				<?php foreach ($rt_downs as $rt): ?>
+				  <tr>
+				    <td><?php echo $rt->hostname_switch; ?></td>
+				    <td><?php echo $rt->ip_addr_switch; ?></td>
+				    <td><?php echo $rt->tipe_switch; ?></td>
+				    <td><?php echo $rt->jenis_switch; ?></td>
+				    <td class="down"><?= $rt->status_switch == false ? 'Down' : 'Up'; ?></td>
+				  </tr>
+				<?php endforeach; ?>
+				<?php else: ?>
+				<tr>
+				    <td colspan="5" class="has-text-centered">Tidak ada Router Down</td>
 				</tr>
 				<?php endif; ?>
 			</tbody>

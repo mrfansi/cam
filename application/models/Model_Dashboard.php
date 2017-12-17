@@ -27,12 +27,20 @@ class Model_Dashboard extends CI_Model
 		return $this->db->count_all('switch');
 	}
 
+	public function count_router() {
+		return $this->db->count_all('router');
+	}
+
 	public function backbone_down() {
-		return $this->db->where('status_link','DOWN')->get('backbone')->result();
+		return $this->db->where('status_link', false)->get('backbone')->result();
 	}
 
 	public function switch_down() {
-		return $this->db->where('status_switch','DOWN')->get('switch')->result();
+		return $this->db->where('status_switch', false)->get('switch')->result();
+	}
+
+	public function router_down() {
+		return $this->db->where('status_router', false)->get('router')->result();
 	}
 }
 
