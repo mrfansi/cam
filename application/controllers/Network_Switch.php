@@ -32,7 +32,7 @@ class Network_Switch extends MY_Controller {
         $data->validasi 	= false;
         $data->kode_switch	= $id;
         $data->action   	= base_url('manage/switch/ubah/' . $id);
-        $data->pops     	= $this->pop->get_all();
+        $data->pops         = $this->pop->order_by('nama_pop','ASC')->get_all();
 
 
         if ($id == '') {
@@ -59,7 +59,7 @@ class Network_Switch extends MY_Controller {
         $data->validasi     = true;
         $data->kode_switch  = 'swh-' . date('Ymd') . '-' . date('His');
         $data->action       = base_url('manage/switch/tambah');
-        $data->pops         = $this->pop->get_all();
+        $data->pops         = $this->pop->order_by('nama_pop','ASC')->get_all();
 
         // form_validation
         $this->form_validation->set_rules('hostname_switch','Hostname', 'trim|required');
@@ -104,7 +104,7 @@ class Network_Switch extends MY_Controller {
         $data->validasi     = true;
         $data->kode_switch  = $id;
         $data->action       = base_url('manage/switch/ubah/' . $id);
-        $data->pops         = $this->pop->get_all();
+        $data->pops         = $this->pop->order_by('nama_pop','ASC')->get_all();
 
 
         if ($id == '') {

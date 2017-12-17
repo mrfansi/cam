@@ -32,7 +32,7 @@ class Network_Vlan extends MY_Controller {
         $data->validasi = false;
         $data->kode_vlan= $id;
         $data->action   = base_url('manage/vlan/ubah/' . $id);
-        $data->pops     = $this->pop->get_all();
+        $data->pops     = $this->pop->order_by('nama_pop','ASC')->get_all();
 
 
         if ($id == '') {
@@ -59,7 +59,7 @@ class Network_Vlan extends MY_Controller {
         $data->validasi = true;
         $data->kode_vlan= 'vln-' . date('Ymd') . '-' . date('His');
         $data->action   = base_url('manage/vlan/tambah');
-        $data->pops     = $this->pop->get_all();
+        $data->pops     = $this->pop->order_by('nama_pop','ASC')->get_all();
 
         // form_validation
         $this->form_validation->set_rules('vlan_id','VLAN ID', 'trim|required|is_unique[vlan.vlan_id]');
@@ -106,6 +106,7 @@ class Network_Vlan extends MY_Controller {
         $data->validasi  = true;
         $data->kode_vlan = $id;
         $data->action    = base_url('manage/vlan/ubah/' . $id);
+        $data->pops      = $this->pop->order_by('nama_pop','ASC')->get_all();
 
         if ($id == '') {
             redirect('manage/vlan/tambah');

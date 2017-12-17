@@ -32,7 +32,7 @@ class Network_Router extends MY_Controller {
         $data->validasi 	= false;
         $data->kode_router	= $id;
         $data->action   	= base_url('manage/router/ubah/' . $id);
-        $data->pops     	= $this->pop->get_all();
+        $data->pops         = $this->pop->order_by('nama_pop','ASC')->get_all();
 
 
         if ($id == '') {
@@ -59,7 +59,7 @@ class Network_Router extends MY_Controller {
         $data->validasi     = true;
         $data->kode_router  = 'rtr-' . date('Ymd') . '-' . date('His');
         $data->action       = base_url('manage/router/tambah');
-        $data->pops         = $this->pop->get_all();
+        $data->pops         = $this->pop->order_by('nama_pop','ASC')->get_all();
 
         // form_validation
         $this->form_validation->set_rules('hostname_router','Hostname', 'trim|required');
@@ -104,7 +104,7 @@ class Network_Router extends MY_Controller {
         $data->validasi     = true;
         $data->kode_router  = $id;
         $data->action       = base_url('manage/router/ubah/' . $id);
-        $data->pops         = $this->pop->get_all();
+        $data->pops         = $this->pop->order_by('nama_pop','ASC')->get_all();
 
 
         if ($id == '') {
