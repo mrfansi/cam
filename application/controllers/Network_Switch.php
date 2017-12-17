@@ -19,7 +19,7 @@ class Network_Switch extends MY_Controller {
         $data = new stdClass();
 
         // load all data in table
-        $data->all_records = $this->sw->get_all();
+        $data->all_records = $this->sw->with_pop('fields:nama_pop')->get_all();
 
         // show view with data
         $this->set_title('Switch');

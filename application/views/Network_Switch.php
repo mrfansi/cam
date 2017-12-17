@@ -96,6 +96,7 @@
           <th>IP Address</th>
           <th>Tipe</th>
           <th>Jenis</th>
+          <th>POP</th>
           <th>Ping Status</th>
           <th>Opsi</th>
         </tr>
@@ -109,6 +110,7 @@
             <td><?php echo $data->ip_addr_switch; ?></td>
             <td><?php echo $data->tipe_switch; ?></td>
             <td><?php echo $data->jenis_switch; ?></td>
+            <td><?php echo $data->pop->nama_pop; ?></td>
             <td id="status" class="<?= $data->status_switch == false ? 'down' : 'up' ?>"><?= $data->status_switch == false ? 'Down' : 'Up'; ?></td>
             <td>
               <button class="button is-small is-info" data="<?php echo $data->kode_switch; ?>" onclick="detil($(this))">Lihat Detil</button>

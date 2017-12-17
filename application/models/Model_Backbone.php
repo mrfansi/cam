@@ -37,6 +37,14 @@ class Model_Backbone extends MY_Model
 			'local_key' 	=> 'kode_pop'
 		);
 
+		$this->has_many['vlan'] = array(
+
+			'foreign_model' => 'Model_Vlan',
+			'foreign_table' => 'vlan',
+			'foreign_key' 	=> 'kode_pop', 
+			'local_key' 	=> 'kode_pop'
+		);
+
 
 		parent::__construct();
 	}

@@ -19,7 +19,7 @@ class Network_Vlan extends MY_Controller {
         $data = new stdClass();
 
         // load all data in table
-        $data->all_records = $this->vlan->get_all();
+        $data->all_records = $this->vlan->with_pop('fields:nama_pop|order_by:nama_pop, asc')->get_all();
 
         // show view with data
         $this->set_title('VLAN');
@@ -40,7 +40,7 @@ class Network_Vlan extends MY_Controller {
         }
 
         // select data from id
-        $data->record = $this->vlan->get($id);
+        $data->record = $this->vlan->where('kode_vlan', $id)->get();
 
         // show view with data
         $this->set_title('Detail VLAN (' . $id . ')');
@@ -83,7 +83,7 @@ class Network_Vlan extends MY_Controller {
 
             // insert into table vlan
 
-            if ($this->vlan->insert($post_data, true)) {
+            if ($this->vlan->insert($post_data)) {
                 $this->session->set_flashdata('berhasil', 'Berhasil menambah data.');
             } else {
                 $this->session->set_flashdata('gagal', 'Gagal menambah data.');
@@ -124,7 +124,6 @@ class Network_Vlan extends MY_Controller {
         } else {
             // set variable post in array
             $post_data = array(
-                'kode_vlan'            => $this->input->post('kode_vlan'),
                 'vlan_id'              => $this->input->post('vlan_id'),
                 'vlan_vendor'          => $this->input->post('vlan_vendor'),
                 'vlan_kapasitas'       => $this->input->post('vlan_kapasitas'),
@@ -134,7 +133,7 @@ class Network_Vlan extends MY_Controller {
 
             // insert into table vlan
 
-            if ($this->vlan->update($id, $post_data)) {
+            if ($this->vlan->where('kode_vlan', $id)->update($post_data)) {
                 $this->session->set_flashdata('berhasil', 'Berhasil mengubah data.');
             } else {
                 $this->session->set_flashdata('gagal', 'Gagal mengubah data.');
@@ -153,7 +152,7 @@ class Network_Vlan extends MY_Controller {
         }
 
         // delete data in table
-        if ($this->vlan->delete($id)) {
+        if ($this->vlan->where('kode_vlan', $id)->delete()) {
             $this->session->set_flashdata('berhasil', 'Berhasil menghapus data.');
         } else {
             $this->session->set_flashdata('gagal', 'Gagal menghapus data.');

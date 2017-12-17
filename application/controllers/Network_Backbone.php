@@ -22,7 +22,7 @@ class Network_Backbone extends MY_Controller {
 		$data = new stdClass();
 
 		// load all data in table
-		$data->all_records = $this->bb->get_all();
+		$data->all_records = $this->bb->order_by('ip_addr_link', 'ASC')->get_all();
 
 		// show view with data
 		$this->set_title('Backbone');

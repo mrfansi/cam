@@ -19,7 +19,7 @@ class Network_POP extends MY_Controller {
 		$data = new stdClass();
 
 		// load all data in table
-		$data->all_records = $this->pop->get_all();
+		$data->all_records = $this->pop->order_by('nama_pop', 'ASC')->get_all();
 
 		// show view with data
 		$this->set_title('POP');

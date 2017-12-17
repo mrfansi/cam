@@ -96,6 +96,7 @@
           <th>VLAN ID</th>
           <th>VLAN Vendor</th>
           <th>Kapasitas</th>
+          <th>POP</th>
           <th>Opsi</th>
         </tr>
       </thead>
@@ -107,6 +108,7 @@
             <td><?php echo $data->vlan_id; ?></td>
             <td><?php echo $data->vlan_vendor; ?></td>
             <td><?php echo $data->vlan_kapasitas . ' ' . $data->vlan_satuan; ?></td>
+            <td><?php echo $data->pop->nama_pop; ?></td>
             <td>
               <button class="button is-small is-info" data="<?php echo $data->kode_vlan; ?>" onclick="detil($(this))">Lihat Detil</button>
               <button class="button is-small is-danger" data="<?php echo $data->kode_vlan; ?>" onclick="hapus($(this))">Hapus</button>
