@@ -57,7 +57,7 @@ class Handler extends CI_Controller {
 
     	foreach ($data->rts as $rt) {
     		// get id
-    		$id = $rt->kode_link;
+    		$id = $rt->kode_router;
 
     		// exec command to check status backbone
     		$command = './handler/ping.py '. $rt->ip_addr_router;
