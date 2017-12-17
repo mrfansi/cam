@@ -23,7 +23,7 @@ class Network_Router extends MY_Controller {
 
         // show view with data
         $this->set_title('Router');
-        $this->tampilkan('Network_router', $data);
+        $this->tampilkan('Network_Router', $data);
 	}
 
 	public function detail($id) {
