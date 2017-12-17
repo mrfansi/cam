@@ -79,13 +79,22 @@
       var target = del.find('form');
       target.attr('action', hapus_action + id);
     }
+
+    function exp() {
+      $('#data-table').tableExport({
+        type: 'excel',
+        ignoreColumn: [6,7],
+        tableName: 'Backbone',
+        escape: false
+      });
+    }
   </script>
 
   <div class="field">
     <p class="control">
       <button type="button" class="button is-link" onclick="baru()">Buat Baru</button>
       <button type="button" class="button is-link">Import dari Excel</button>
-      <button type="button" class="button is-link">Export ke Excel</button>
+      <button type="button" class="button is-link" onclick="exp()">Export ke Excel</button>
     </p>
   </div>
 

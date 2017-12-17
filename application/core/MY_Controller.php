@@ -47,6 +47,12 @@ class MY_Controller extends CI_Controller
 					 ->add_includes('assets/css/bulma.min.css')
 					 ->add_includes('assets/css/admin.css')
 					 ->add_includes('assets/js/jquery.min.js')
+					 ->add_includes('assets/js/plugin/table-export/tableExport.js')
+					 ->add_includes('assets/js/plugin/table-export/jquery.base64.js')
+					 ->add_includes('assets/js/plugin/table-export/html2canvas.js')
+					 ->add_includes('assets/js/plugin/table-export/jspdf/jspdf.js')
+					 ->add_includes('assets/js/plugin/table-export/jspdf/libs/base64.js')
+					 ->add_includes('assets/js/plugin/table-export/jspdf/libs/sprintf.js')
 					 ->add_includes('assets/js/main.js')
 				     ->add_includes('assets/js/bulma.js')
 				     ->add_includes('assets/img/favicon.ico');

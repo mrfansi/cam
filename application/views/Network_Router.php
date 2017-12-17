@@ -71,6 +71,15 @@
       var target = del.find('form');
       target.attr('action', hapus_action + id);
     }
+    
+    function exp() {
+      $('#data-table').tableExport({
+        type: 'excel',
+        ignoreColumn: [5,6],
+        tableName: 'Router',
+        escape: false
+      });
+    }
 
   </script>
 
@@ -78,7 +87,7 @@
     <p class="control">
       <button type="button" class="button is-link" onclick="baru()">Buat Baru</button>
       <button type="button" class="button is-link">Import dari Excel</button>
-      <button type="button" class="button is-link">Export ke Excel</button>
+      <button type="button" class="button is-link" onclick="exp()">Export ke Excel</button>
     </p>
   </div>
 
