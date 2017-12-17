@@ -56,7 +56,7 @@
 		    		<tr>
 		    			<td><?php echo $bb->nama_link; ?></td>
 		    			<td><?php echo $bb->kapasitas_link . ' Mbps'; ?></td>
-		    			<td><?php echo $bb->ip_addr_link; ?></td>
+		    			<td><a href="http://<?php echo $bb->ip_addr_link; ?>"><?php echo $bb->ip_addr_link; ?></a></td>
 		    			<td><?php echo $bb->txfreq_link; ?></td>
 		    			<td><?php echo $bb->rxfreq_link; ?></td>
 		    			<td><?php echo $bb->signal_link; ?></td>

@@ -99,7 +99,7 @@
   </div>
 
   <div id="data">
-    <table class="table is-bordered is-striped is-narrow is-fullwidth is-hoverable" id="data-table">
+    <table class="table is-narrow is-fullwidth is-hoverable" id="data-table">
       <thead>
         <tr>
           <th>VLAN ID</th>
